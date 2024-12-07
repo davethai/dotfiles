@@ -41,3 +41,33 @@ cd dotfiles
 ```shell
 stow .
 ```
+
+### Making changes
+
+1. Any changes to `flake.nix` run to apply changes
+
+```shell
+darwin-rebuild switch --flake ~/dotfiles/nix
+```
+
+### Upgrading packages
+
+1. Update Nix flake (Flake inputs updated)
+
+```shell
+nix flake update
+```
+
+2. Update Nix packages
+
+```shell
+darwin-rebuild switch --flake ~/dotfiles/nix
+```
+3. Update Homebrew packages (Only if autoUpdate or upgrade not `true`)
+```shell
+brew update
+```
+
+```shell
+brew upgrade
+```

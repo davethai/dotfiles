@@ -1,21 +1,114 @@
 {
-  description = "Example nix-darwin system flake";
+  description = "Dave Thai nix-darwin system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
   let
-    configuration = { pkgs, ... }: {
+    configuration = { pkgs, config, ... }: {
+
+      nixpkgs.config.allowUnfree = true;
+
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.vim
+        [
+          # Mac Requirement
+          pkgs.mkalias
+          # Terminal emulator
+          pkgs.neofetch
+          pkgs.lolcat
+          pkgs.fzf
+          pkgs.zoxide
+          # CLI Tooling
+          pkgs.hey
+          pkgs.jq
+          pkgs.just
+          # Design
+          # Frontend
+          pkgs.pnpm
+          # Backend
+          pkgs.go
+          pkgs.go-tools
+          # Database
+          pkgs.pgcli
         ];
+      
+      homebrew = {
+        enable = true;
+        brews = [
+          "mas"
+          "nvm"
+        ];
+        casks = [
+          # 3D Modeling
+          "blender"
+          # Collaboration
+          "discord"
+          "microsoft-teams"
+          "telegram"
+          "zoom"
+          # Design
+          "figma"
+          # Code
+          "visual-studio-code"
+          # Database
+          "pgadmin4"
+          "tableplus"
+          # Gaming
+          "steam"
+          # Peripherals
+          "logi-options+"
+          # Productivity Tools
+          "imageoptim"
+          "rectangle-pro"
+          # Security
+          "malwarebytes"
+          # Video
+          "elgato-camera-hub"
+          "obs"
+          # Other
+          "google-chrome"
+          "flux"
+        ];
+        masApps = {
+          "Affinity Photo 2" = 1616822987;
+          "Affinity Designer 2" = 1616831348;
+          "Affnity Publisher 2" = 1606941598;
+          "Amazon Kindle" = 302584613;
+          "Logic Pro" = 634148309;
+        };
+        onActivation.cleanup = "zap";
+        onActivation.autoUpdate = true;
+        onActivation.upgrade = true;
+      };
 
+      # Mac Alias
+      system.activationScripts.applications.text = let
+        env = pkgs.buildEnv {
+          name = "system-applications";
+          paths = config.environment.systemPackages;
+          pathsToLink = "/Applications";
+        };
+      in
+        pkgs.lib.mkForce ''
+        # Set up applications.
+        echo "setting up /Applications..." >&2
+        rm -rf /Applications/Nix\ Apps
+        mkdir -p /Applications/Nix\ Apps
+        find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
+        while read -r src; do
+          app_name=$(basename "$src")
+          echo "copying $src" >&2
+          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+        done
+            '';
+      
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
 
@@ -43,7 +136,19 @@
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Daves-MacBook-Pro
     darwinConfigurations."Daves-MacBook-Pro" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
+      modules = [ 
+        configuration
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            enable = true;
+            # Apple Silicon Only
+            enableRosetta = true;
+            # User owning the Homebrew prefix
+            user = "davethai";
+          };
+        }
+      ];
     };
 
     # Expose the package set, including overlays, for convenience.
