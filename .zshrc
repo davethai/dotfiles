@@ -76,3 +76,4 @@ alias c='clear'
 # 8) Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(direnv hook zsh)"
