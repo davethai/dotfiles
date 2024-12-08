@@ -83,6 +83,13 @@ brew upgrade
 1. [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/)
 2. Xcode
 
+### VSCode
+1. `Cmd` + `Shift` + `P` = `Install code command in path`
+2. Copy vscode icons to extensions
+```shell
+cp -r ~/dotfiles/vscode/icons ~/.vscode/extensions/icons
+```
+
 ### GNU Stow
 
 Note: GNU stow has a default ignore file: https://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html

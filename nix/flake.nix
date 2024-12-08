@@ -37,6 +37,7 @@
           # Backend
           pkgs.go
           pkgs.go-tools
+          pkgs.nodejs_22
           # Database
           pkgs.pgcli
         ];
@@ -45,7 +46,6 @@
         enable = true;
         brews = [
           "mas"
-          "nvm"
         ];
         casks = [
           # 3D Modeling
@@ -83,7 +83,7 @@
         masApps = {
           "Affinity Photo 2" = 1616822987;
           "Affinity Designer 2" = 1616831348;
-          "Affnity Publisher 2" = 1606941598;
+          "Affinity Publisher 2" = 1606941598;
           "Amazon Kindle" = 302584613;
           "Logic Pro" = 634148309;
         };
@@ -91,6 +91,13 @@
         onActivation.autoUpdate = true;
         onActivation.upgrade = true;
       };
+
+      fonts.packages = with pkgs; [
+        nerd-fonts.fira-code
+        nerd-fonts.droid-sans-mono
+
+        nerd-fonts.symbols-only  #This one
+      ];
 
       # Mac Alias - Nix GUI apps show in Spotlight search
       system.activationScripts.applications.text = let
@@ -112,18 +119,22 @@
           ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
         done
             '';
-
+      
       system.defaults = {
-        dock.autohide = true;
-        dock.persistent-apps = [
-          "/System/Applications/Messages.app"
-          "/System/Applications/Notes.app"
-          "/Applications/Google Chrome.app"
-          "/Applications/Visual Studio Code.app"
-          "/Applications/Discord.app"
-          "/Applications/Affinity Photo 2.app"
-          "/Applications/Affinity Designer 2.app"
-        ];
+        dock = {
+          autohide = true;
+          autohide-delay = 0.0;
+          show-recents = false;
+          persistent-apps = [
+            "/System/Applications/Messages.app"
+            "/System/Applications/Notes.app"
+            "/Applications/Google Chrome.app"
+            "/Applications/Visual Studio Code.app"
+            "/Applications/Discord.app"
+            "/Applications/Affinity Photo 2.app"
+            "/Applications/Affinity Designer 2.app"
+          ];
+        };
         NSGlobalDomain.AppleICUForce24HourTime = true;
         NSGlobalDomain.AppleInterfaceStyle = "Dark";
       };
