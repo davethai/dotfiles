@@ -67,6 +67,8 @@
           # Productivity Tools
           "imageoptim"
           "rectangle-pro"
+          # Storage
+          "dropbox"
           # Security
           "malwarebytes"
           # Video

@@ -71,3 +71,6 @@ brew update
 ```shell
 brew upgrade
 ```
+
+### Manually installed
+1. [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/)
