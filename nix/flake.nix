@@ -25,21 +25,9 @@
           pkgs.lolcat
           pkgs.fzf
           pkgs.zoxide
-          # CLI Tooling
-          pkgs.hey
-          pkgs.jq
-          pkgs.just
           # General
           pkgs.git
           pkgs.stow
-          # Frontend
-          pkgs.pnpm
-          # Backend
-          pkgs.go
-          pkgs.go-tools
-          pkgs.nodejs_22
-          # Database
-          pkgs.pgcli
         ];
       
       homebrew = {
