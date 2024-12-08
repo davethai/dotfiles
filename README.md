@@ -22,19 +22,25 @@ sh <(curl -L https://nixos.org/nix/install)
 nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git dotfiles'
 ```
 
-2. Run `nix-darwin` with `flake.nix`
+2. Install Command Line Tools
+
+```shell
+xcode-select --install
+```
+
+3. Run `nix-darwin` with `flake.nix`
 
 ```shell
 nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dotfiles/nix#Daves-MacBook-Pro
 ```
 
-3. `cd` into `$HOME/dotfiles` directory
+4. `cd` into `$HOME/dotfiles` directory
 
 ```shell
 cd ~/dotfiles
 ```
 
-4. Use GNU stow to create symlinks to `$HOME`
+5. Use GNU stow to create symlinks to `$HOME`
 
 ```shell
 stow .
