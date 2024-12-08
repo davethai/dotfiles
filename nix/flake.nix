@@ -110,6 +110,21 @@
           ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
         done
             '';
+
+      system.defaults = {
+        dock.autohide = true;
+        dock.persistent-apps = [
+          "/System/Applications/Messages.app"
+          "/System/Applications/Notes.app"
+          "/Applications/Google Chrome.app"
+          "/Applications/Visual Studio Code.app"
+          "/Applications/Discord.app"
+          "/Applications/Affinity Photo 2.app"
+          "/Applications/Affinity Designer 2.app"
+        ];
+        NSGlobalDomain.AppleICUForce24HourTime = true;
+        NSGlobalDomain.AppleInterfaceStyle = "Dark";
+      };
       
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
