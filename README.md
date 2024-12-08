@@ -14,6 +14,12 @@ Ensure you have the following installed on your system.
 sh <(curl -L https://nixos.org/nix/install)
 ```
 
+2. Command Line Tools
+
+```shell
+xcode-select --install
+```
+
 ### Installation
 
 1. Make sure you are in `$HOME` directory
@@ -22,27 +28,19 @@ sh <(curl -L https://nixos.org/nix/install)
 nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git dotfiles'
 ```
 
-2. Install XCode on Mac App Store
-
-3. Install Command Line Tools
-
-```shell
-xcode-select --install
-```
-
-4. Run `nix-darwin` with `flake.nix`
+2. Run `nix-darwin` with `flake.nix`
 
 ```shell
 nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dotfiles/nix#Daves-MacBook-Pro
 ```
 
-5. `cd` into `$HOME/dotfiles` directory
+3. `cd` into `$HOME/dotfiles` directory
 
 ```shell
 cd ~/dotfiles
 ```
 
-6. Use GNU stow to create symlinks to `$HOME`
+4. Use GNU stow to create symlinks to `$HOME`
 
 ```shell
 stow .
