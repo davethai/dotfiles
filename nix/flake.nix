@@ -121,6 +121,8 @@
             '';
       
       system.defaults = {
+        NSGlobalDomain.AppleICUForce24HourTime = true;
+        NSGlobalDomain.AppleInterfaceStyle = "Dark";
         dock = {
           autohide = true;
           autohide-delay = 0.0;
@@ -135,8 +137,10 @@
             "/Applications/Affinity Designer 2.app"
           ];
         };
-        NSGlobalDomain.AppleICUForce24HourTime = true;
-        NSGlobalDomain.AppleInterfaceStyle = "Dark";
+        controlcenter = {
+          Bluetooth = true;
+          BatteryShowPercentage = true;
+        };
       };
       
       # Necessary for using flakes on this system.
