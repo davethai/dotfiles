@@ -90,7 +90,7 @@
         onActivation.upgrade = true;
       };
 
-      # Mac Alias
+      # Mac Alias - Nix GUI apps show in Spotlight search
       system.activationScripts.applications.text = let
         env = pkgs.buildEnv {
           name = "system-applications";
