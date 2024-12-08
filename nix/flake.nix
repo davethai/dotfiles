@@ -29,7 +29,9 @@
           pkgs.hey
           pkgs.jq
           pkgs.just
-          # Design
+          # General
+          pkgs.git
+          pkgs.stow
           # Frontend
           pkgs.pnpm
           # Backend
