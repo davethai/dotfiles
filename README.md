@@ -81,6 +81,7 @@ brew upgrade
 ### Manually installed
 
 1. [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/)
+2. Xcode
 
 ### GNU Stow
 
