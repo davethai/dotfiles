@@ -22,6 +22,12 @@ brew install stow
 
 Note: GNU stow has a default ignore file: https://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html
 
+1. Install [Nix](https://nixos.org/download/)
+
+```shell
+sh <(curl -L https://nixos.org/nix/install)
+```
+
 ### Installation
 
 1. Clone the repo in your `$HOME` directory
@@ -40,6 +46,12 @@ cd dotfiles
 
 ```shell
 stow .
+```
+
+4. Install n
+
+```shell
+nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dotfiles/nix#Daves-MacBook-Pro
 ```
 
 ### Making changes
@@ -63,7 +75,9 @@ nix flake update
 ```shell
 darwin-rebuild switch --flake ~/dotfiles/nix
 ```
+
 3. Update Homebrew packages (Only if autoUpdate or upgrade not `true`)
+
 ```shell
 brew update
 ```
@@ -73,4 +87,5 @@ brew upgrade
 ```
 
 ### Manually installed
+
 1. [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/)
