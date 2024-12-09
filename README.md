@@ -22,10 +22,10 @@ xcode-select --install
 
 ### Installation
 
-1. Make sure you are in `$HOME` directory
+1. Clone repo
 
 ```shell
-nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git dotfiles'
+nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/dotfiles'
 ```
 
 2. Run `nix-darwin` with `flake.nix`
