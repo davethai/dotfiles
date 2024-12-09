@@ -125,6 +125,9 @@
             "/Applications/Affinity Designer 2.app"
           ];
         };
+        finder = {
+          FXPreferredViewStyle = "icnv";
+        };
         controlcenter = {
           Bluetooth = true;
           BatteryShowPercentage = true;
