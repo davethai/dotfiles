@@ -155,9 +155,6 @@
 
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true;
-
-      # Enable direnv
-      programs.direnv.enable = true;
     };
   in
   {
