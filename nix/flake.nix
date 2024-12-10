@@ -16,18 +16,18 @@
 
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [
+      environment.systemPackages = with pkgs;
+      [
           # Mac Requirement
-          pkgs.mkalias
+          mkalias
           # Terminal emulator
-          pkgs.neofetch
-          pkgs.lolcat
-          pkgs.fzf
-          pkgs.zoxide
+          neofetch
+          lolcat
+          fzf
+          zoxide
           # General
-          pkgs.git
-          pkgs.stow
+          git
+          stow
         ];
       
       homebrew = {
