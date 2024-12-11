@@ -4,35 +4,23 @@
       "mas"
     ];
     casks = [
-      # 3D Modeling
       "blender"
-      # Collaboration
       "discord"
       "microsoft-teams"
       "telegram"
       "zoom"
-      # Design
       "figma"
-      # Code
       "visual-studio-code"
-      # Database
       "pgadmin4"
       "tableplus"
-      # Gaming
       "steam"
-      # Peripherals
       "logi-options+"
-      # Productivity Tools
       "imageoptim"
       "rectangle-pro"
-      # Storage
       "dropbox"
-      # Security
       "malwarebytes"
-      # Video
       "elgato-camera-hub"
       "obs"
-      # Other
       "google-chrome"
       "flux"
     ];
