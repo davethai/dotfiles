@@ -13,7 +13,7 @@
     };
   };
 
-  outputs = inputs@{ self, darwin, nixpkgs, homebrew }:
+  outputs = inputs@{ self, nixpkgs, darwin, homebrew }:
   let
     user = "davethai";
     hostname = "Daves-MacBook-Pro";
