@@ -15,37 +15,12 @@
 
   outputs = inputs@{ self, nixpkgs, darwin, homebrew }:
   let
-    user = "davethai";
-    hostname = "Daves-MacBook-Pro";
+    # ---- SYSTEM SETTINGS ---- #
     system = "aarch64-darwin";
 
-    coreConfiguraton = { pkgs, config, ... }: {
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
-      
-      nixpkgs = {
-        config.allowUnfree = true;
-        # The platform the configuration will be used on.
-        hostPlatform = system;
-      };
-            
-      system = {
-        # Set Git commit hash for darwin-version.
-        configurationRevision = self.rev or self.dirtyRev or null;
-        # Used for backwards compatibility, please read the changelog before changing.
-        # $ darwin-rebuild changelog
-        stateVersion = 5;
-      };
-
-      # Auto upgrade nix package and the daemon service.
-      services.nix-daemon.enable = true;
-
-      programs = {
-        # Create /etc/zshrc that loads the nix-darwin environment.
-        zsh.enable = true;
-        direnv.enable = true;
-      };
-    };
+    # ---- USER SETTINGS ---- #
+    user = "davethai";
+    hostname = "Daves-MacBook-Pro";
 
     aliasConfiguration = { pkgs, config, ... }: {
       # Mac Alias - Nix GUI apps show in Spotlight search
@@ -74,10 +49,9 @@
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Daves-MacBook-Pro
     darwinConfigurations.${hostname} = darwin.lib.darwinSystem {
-      specialArgs = {inherit inputs self user;};
+      specialArgs = {inherit inputs system self user;};
 
       modules = [ 
-        coreConfiguraton
         ./modules
         aliasConfiguration
         homebrew.darwinModules.nix-homebrew
