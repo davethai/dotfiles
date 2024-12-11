@@ -1,8 +1,8 @@
 {
   imports = [
-    ./fonts.nix
     ./homebrew
-    ./packages.nix
     ./system
+    ./fonts.nix
+    ./packages.nix
   ];
 }

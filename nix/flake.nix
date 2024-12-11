@@ -23,12 +23,13 @@
       # Enable alternative shell support in nix-darwin.
       # programs.fish.enable = true;
 
-      # Set Git commit hash for darwin-version.
-      system.configurationRevision = self.rev or self.dirtyRev or null;
-
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 5;
+      system = {
+        # Set Git commit hash for darwin-version.
+        configurationRevision = self.rev or self.dirtyRev or null;
+        # Used for backwards compatibility, please read the changelog before changing.
+        # $ darwin-rebuild changelog
+        stateVersion = 5;
+      };
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = system;
@@ -36,11 +37,11 @@
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
 
-      # Create /etc/zshrc that loads the nix-darwin environment.
-      programs.zsh.enable = true;
-
-      # Enable direnv
-      programs.direnv.enable = true;
+      programs = {
+        # Create /etc/zshrc that loads the nix-darwin environment.
+        zsh.enable = true;
+        direnv.enable = true;
+      };
     };
 
     aliasConfiguration = { pkgs, config, ... }: {
@@ -70,7 +71,7 @@
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Daves-MacBook-Pro
     darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
-      specialArgs = {inherit inputs user;};
+      specialArgs = {inherit inputs self user;};
 
       modules = [ 
         coreConfiguraton
