@@ -3,12 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    homebrew = {
+      url = "github:zhaofengli-wip/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
+  outputs = inputs@{ self, darwin, nixpkgs, homebrew }:
   let
     user = "davethai";
     hostname = "Daves-MacBook-Pro";
@@ -68,14 +73,14 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Daves-MacBook-Pro
-    darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.${hostname} = darwin.lib.darwinSystem {
       specialArgs = {inherit inputs self user;};
 
       modules = [ 
         coreConfiguraton
         ./modules
         aliasConfiguration
-        nix-homebrew.darwinModules.nix-homebrew
+        homebrew.darwinModules.nix-homebrew
       ];
     };
 
