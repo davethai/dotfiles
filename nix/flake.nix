@@ -15,7 +15,11 @@
     system = "aarch64-darwin";
 
     coreConfiguraton = { pkgs, config, ... }: {
-      nixpkgs.config.allowUnfree = true;
+      nixpkgs = {
+        config.allowUnfree = true;
+        # The platform the configuration will be used on.
+        hostPlatform = system;
+      };
             
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
@@ -30,9 +34,6 @@
         # $ darwin-rebuild changelog
         stateVersion = 5;
       };
-
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = system;
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
