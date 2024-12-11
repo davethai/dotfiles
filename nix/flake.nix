@@ -15,18 +15,15 @@
     system = "aarch64-darwin";
 
     coreConfiguraton = { pkgs, config, ... }: {
+      # Necessary for using flakes on this system.
+      nix.settings.experimental-features = "nix-command flakes";
+      
       nixpkgs = {
         config.allowUnfree = true;
         # The platform the configuration will be used on.
         hostPlatform = system;
       };
             
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
-
-      # Enable alternative shell support in nix-darwin.
-      # programs.fish.enable = true;
-
       system = {
         # Set Git commit hash for darwin-version.
         configurationRevision = self.rev or self.dirtyRev or null;
