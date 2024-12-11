@@ -1,0 +1,17 @@
+{ pkgs, ... }:
+{
+  # List packages installed in system profile. To search by name, run:
+  # $ nix-env -qaP | grep wget
+  environment.systemPackages = with pkgs; [
+      # Mac Requirement
+      mkalias
+      # Terminal emulator
+      neofetch
+      lolcat
+      fzf
+      zoxide
+      # General
+      git
+      stow
+    ];
+}

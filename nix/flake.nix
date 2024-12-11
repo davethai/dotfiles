@@ -10,6 +10,10 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
   let
+    user = "davethai";
+    hostname = "Daves-MacBook-Pro";
+    system = "aarch64-darwin";
+
     coreConfiguraton = { pkgs, config, ... }: {
       nixpkgs.config.allowUnfree = true;
             
@@ -27,7 +31,7 @@
       system.stateVersion = 5;
 
       # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+      nixpkgs.hostPlatform = system;
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
@@ -37,110 +41,6 @@
 
       # Enable direnv
       programs.direnv.enable = true;
-    };
-
-    packageConfiguration = { pkgs, config, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      environment.systemPackages = with pkgs; [
-          # Mac Requirement
-          mkalias
-          # Terminal emulator
-          neofetch
-          lolcat
-          fzf
-          zoxide
-          # General
-          git
-          stow
-        ];
-
-      fonts.packages = with pkgs; [
-        nerd-fonts.fira-code
-        nerd-fonts.droid-sans-mono
-
-        nerd-fonts.symbols-only  #This one
-      ];
-    };
-
-    homebrewConfiguration = { pkgs, config, ... }: {
-      homebrew = {
-        enable = true;
-        brews = [
-          "mas"
-        ];
-        casks = [
-          # 3D Modeling
-          "blender"
-          # Collaboration
-          "discord"
-          "microsoft-teams"
-          "telegram"
-          "zoom"
-          # Design
-          "figma"
-          # Code
-          "visual-studio-code"
-          # Database
-          "pgadmin4"
-          "tableplus"
-          # Gaming
-          "steam"
-          # Peripherals
-          "logi-options+"
-          # Productivity Tools
-          "imageoptim"
-          "rectangle-pro"
-          # Storage
-          "dropbox"
-          # Security
-          "malwarebytes"
-          # Video
-          "elgato-camera-hub"
-          "obs"
-          # Other
-          "google-chrome"
-          "flux"
-        ];
-        masApps = {
-          "Affinity Photo 2" = 1616822987;
-          "Affinity Designer 2" = 1616831348;
-          "Affinity Publisher 2" = 1606941598;
-          "Amazon Kindle" = 302584613;
-          "Logic Pro" = 634148309;
-        };
-        onActivation.cleanup = "zap";
-        onActivation.autoUpdate = true;
-        onActivation.upgrade = true;
-      };
-    };
-
-    macDefaults = { pkgs, config, ... }: {
-      system.defaults = {
-        NSGlobalDomain.AppleICUForce24HourTime = true;
-        NSGlobalDomain.AppleInterfaceStyle = "Dark";
-        dock = {
-          autohide = true;
-          autohide-delay = 0.0;
-          show-recents = false;
-          persistent-apps = [
-            "/System/Applications/Messages.app"
-            "/System/Applications/Notes.app"
-            "/Applications/Google Chrome.app"
-            "/Applications/Visual Studio Code.app"
-            "/Applications/Discord.app"
-            "/Applications/Affinity Photo 2.app"
-            "/Applications/Affinity Designer 2.app"
-          ];
-        };
-        finder = {
-          FXPreferredViewStyle = "icnv";
-        };
-        controlcenter = {
-          Bluetooth = true;
-          BatteryShowPercentage = true;
-        };
-      };
     };
 
     aliasConfiguration = { pkgs, config, ... }: {
@@ -169,27 +69,18 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Daves-MacBook-Pro
-    darwinConfigurations."Daves-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
+      specialArgs = {inherit inputs user;};
+
       modules = [ 
         coreConfiguraton
-        packageConfiguration
-        homebrewConfiguration
-        macDefaults
+        ./modules
         aliasConfiguration
         nix-homebrew.darwinModules.nix-homebrew
-        {
-          nix-homebrew = {
-            enable = true;
-            # Apple Silicon Only
-            enableRosetta = true;
-            # User owning the Homebrew prefix
-            user = "davethai";
-          };
-        }
       ];
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."Daves-MacBook-Pro".pkgs;
+    darwinPackages = self.darwinConfigurations.${hostname}.pkgs;
   };
 }
