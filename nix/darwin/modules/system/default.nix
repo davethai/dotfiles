@@ -6,7 +6,9 @@ let
 in
 {
   system.defaults = {
-    NSGlobalDomain.AppleICUForce24HourTime = true;
-    NSGlobalDomain.AppleInterfaceStyle = "Dark";
+    NSGlobalDomain = {
+      AppleICUForce24HourTime = true;
+      AppleInterfaceStyle = "Dark";
+    };
   } // controlcenter // dock // finder;
 }
