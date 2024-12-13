@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   finder = {
     FXPreferredViewStyle = "icnv";
   };

@@ -15,7 +15,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -30,30 +30,12 @@
     user = "davethai";
   in
   {
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#Daves-MacBook-Pro
     darwinConfigurations.${hostname} = darwin.lib.darwinSystem {
+      inherit system;
       specialArgs = {inherit inputs system self user;};
       modules = [ 
-        ./darwin
+        ./darwin/os
         homebrew.darwinModules.nix-homebrew
-        home-manager.darwinModule
-        {
-          users.users.${user}.home = "/Users/davethai";
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-
-            extraSpecialArgs = {inherit inputs;};
-            
-            users.${user} = {...}: with inputs; {
-              imports = [
-                ./homemanager
-              ];
-              home.stateVersion = "24.05";
-            };
-          };
-        }
       ];
     };
 
