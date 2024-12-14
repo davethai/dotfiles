@@ -1,6 +1,6 @@
 {
   imports = [
-    ./programs
     ./fonts.nix
+    ./settings.nix
   ];
 }

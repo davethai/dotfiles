@@ -2,7 +2,7 @@
 
 `$HOME/dotfiles` structure must match `$HOME`
 
-## Mac Step
+## Darwin (MacOS)
 
 ### Requirements
 
@@ -31,7 +31,7 @@ nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/dot
 2. Run `nix-darwin` with `flake.nix`
 
 ```shell
-nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dotfiles/nix#Daves-MacBook-Pro
+nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dotfiles/nix#macbook-pro-m1-max-16
 ```
 
 3. `cd` into `$HOME/dotfiles` directory

@@ -1,6 +1,6 @@
 {
   imports = [
-    ../modules/fonts.nix
+    ../../modules/fonts.nix
   ];
 
   extraFonts = [];

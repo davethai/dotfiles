@@ -1,4 +1,6 @@
 {config, pkgs, lib, ...}: let
+  inherit (lib.types) listOf str;
+
   defaultFonts =  with pkgs; [
     nerd-fonts.fira-code
     nerd-fonts.droid-sans-mono
@@ -6,7 +8,7 @@
   ];
 in {
   options.extraFonts = lib.mkOption {
-    type = lib.types.listOf lib.str;
+    type = listOf str;
     default = [];
     description = "Additional fonts to be installed along with default fonts.";
   };

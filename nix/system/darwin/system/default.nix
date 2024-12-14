@@ -1,4 +1,4 @@
-{ self, system, config, pkgs, ... }:
+{ self, config, pkgs, ... }:
 let
   controlcenter = import ./control-center.nix { inherit pkgs config; };
   dock = import ./dock.nix { inherit pkgs config; };
@@ -10,15 +10,8 @@ in
     ./services.nix
     ./homebrew
   ];
-
-  # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
   
-  nixpkgs = {
-    config.allowUnfree = true;
-    # The platform the configuration will be used on.
-    hostPlatform = system;
-  };
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
   system = {
     # Set Git commit hash for darwin-version.
