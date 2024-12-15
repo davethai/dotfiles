@@ -84,8 +84,10 @@ brew upgrade
 2. Xcode
 
 ### VSCode
+
 1. `Cmd` + `Shift` + `P` = `Install code command in path`
 2. Copy vscode icons to extensions
+
 ```shell
 cp -r ~/dotfiles/vscode/icons ~/.vscode/extensions/icons
 ```
@@ -93,3 +95,8 @@ cp -r ~/dotfiles/vscode/icons ~/.vscode/extensions/icons
 ### GNU Stow
 
 Note: GNU stow has a default ignore file: https://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html
+
+## Credits
+
+[@use-the-fork](https://github.com/use-the-fork) - for introducing to me to Nix!
+[@NotAShelf/nyx](https://github.com/NotAShelf/nyx) - scalable file structure and code inspiration
