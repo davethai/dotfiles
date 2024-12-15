@@ -4,11 +4,5 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
       mkalias
-      neofetch
-      lolcat
-      fzf
-      zoxide
-      git
-      stow
     ];
 }
