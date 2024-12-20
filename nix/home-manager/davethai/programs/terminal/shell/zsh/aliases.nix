@@ -10,6 +10,11 @@ in {
     cat = "${getExe bat} --style=plain";
     ls = "${getExe eza} -h --git --icons --color=auto --group-directories-first -s extension";
 
+    # git
+    gaa = "git add .";
+    gc = "git commit";
+    gp = "git push";
+
     # quick navigation
     ".." = "cd ..";
     "..." = "cd ../../";
