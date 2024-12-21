@@ -1,7 +1,5 @@
 # My dotfiles
 
-`$HOME/dotfiles` structure must match `$HOME`
-
 ## WSL2 (NixOS)
 
 ### Requirements
