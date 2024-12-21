@@ -2,6 +2,70 @@
 
 `$HOME/dotfiles` structure must match `$HOME`
 
+## WSL2 (NixOS)
+
+### Requirements
+
+1. Ensure WSL is enabled.
+
+```powershell
+wsl --install --no-distribution
+```
+
+2. Download `nixos-wsl.tar.gz` from the [latest release](https://github.com/nix-community/NixOS-WSL/releases/latest)
+
+3. Import the tarball into WSL2
+
+```powershell
+wsl --import NixOS $env:USERPROFILE\NixOS\ nixos-wsl.tar.gz --version 2
+```
+
+4. Set NixOS as the default
+
+```powershell
+wsl --set-default NixOS
+```
+
+5. You can now run NixOS (`-d NixOS` is not required because NixOS is default distro)
+
+```powershell
+wsl
+```
+
+### Installation
+
+1. Clone repo
+
+```shell
+nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/dotfiles'
+```
+
+2. Apply the configuration and shutdown the WSL2 VM
+
+```shell
+sudo nixos-rebuild switch --flake ~/dotfiles/nix#asus-tuf-gaming.nix && sudo shutdown -h now
+```
+
+3. Reconnect to WSL2 VM
+
+```powershell
+wsl
+```
+
+### Making changes
+
+1. Update Nix flake (Flake inputs updated)
+
+```shell
+nix flake update
+```
+
+2. Any changes to `flake.nix` run to apply changes
+
+```shell
+sudo nixos-rebuild switch --flake ~/dotfiles/nix#asus-tuf-gaming.nix
+```
+
 ## Darwin (MacOS)
 
 ### Requirements
@@ -38,12 +102,6 @@ nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch 
 
 ```shell
 cd ~/dotfiles
-```
-
-4. Use GNU stow to create symlinks to `$HOME`
-
-```shell
-stow .
 ```
 
 ### Making changes
@@ -91,10 +149,6 @@ brew upgrade
 ```shell
 cp -r ~/dotfiles/vscode/icons ~/.vscode/extensions/icons
 ```
-
-### GNU Stow
-
-Note: GNU stow has a default ignore file: https://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html
 
 ## Credits
 

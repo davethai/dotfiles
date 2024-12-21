@@ -6,8 +6,6 @@ let
 in
 {
   imports = [
-    ./programs.nix
-    ./services.nix
     ./homebrew
   ];
   
