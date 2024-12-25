@@ -43,7 +43,7 @@ nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/dot
 2. Apply the configuration and shutdown the WSL2 VM
 
 ```shell
-sudo nixos-rebuild switch --flake ~/dotfiles/nix#asus-tuf-gaming.nix && sudo shutdown -h now
+nix run nixpkgs#nixos-rebuild --extra-experimental-features 'nix-command flakes' switch --flake ~/dotfiles/nix#asus-tuf-gaming.nix && sudo shutdown -h now
 ```
 
 3. Reconnect to WSL2 VM
