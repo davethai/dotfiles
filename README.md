@@ -12,7 +12,7 @@ wsl --install --no-distribution
 
 2. Download `nixos-wsl.tar.gz` from the [latest release](https://github.com/nix-community/NixOS-WSL/releases/latest)
   
-3. cd into the directory where `nixos-wsl.tar.gz` is located
+3. `cd` into the directory where `nixos-wsl.tar.gz` is located
 
 4. Import the tarball into WSL2
 
