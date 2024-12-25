@@ -11,20 +11,22 @@ wsl --install --no-distribution
 ```
 
 2. Download `nixos-wsl.tar.gz` from the [latest release](https://github.com/nix-community/NixOS-WSL/releases/latest)
+  
+3. cd into the directory where `nixos-wsl.tar.gz` is located
 
-3. Import the tarball into WSL2
+4. Import the tarball into WSL2
 
 ```powershell
 wsl --import NixOS $env:USERPROFILE/NixOS nixos-wsl.tar.gz --version 2
 ```
 
-4. Set NixOS as the default
+5. Set NixOS as the default
 
 ```powershell
 wsl --set-default NixOS
 ```
 
-5. You can now run NixOS (`-d NixOS` is not required because NixOS is default distro)
+6. You can now run NixOS (`-d NixOS` is not required because NixOS is default distro)
 
 ```powershell
 wsl
