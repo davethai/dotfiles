@@ -15,7 +15,7 @@ wsl --install --no-distribution
 3. Import the tarball into WSL2
 
 ```powershell
-wsl --import NixOS $env:USERPROFILE\NixOS\ nixos-wsl.tar.gz --version 2
+wsl --import NixOS $env:USERPROFILE/NixOS nixos-wsl.tar.gz --version 2
 ```
 
 4. Set NixOS as the default
