@@ -46,7 +46,7 @@
     };
 
     # NixOS + WSL 2
-    nixosConfiguration = {
+    nixosConfigurations = {
       asus-tuf-gaming = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit self inputs home-manager agenix;
           user = "davethai";
