@@ -1,8 +1,10 @@
-{user, lib, ...}: {
+{user, ...}: {
     home-manager = {
     verbose = true;
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.${user} = lib.attrsets.genAttrs ./${user}/home.nix;
+    users.${user} = {
+      home = ./${user}/home.nix;
+    };
   };
 }
