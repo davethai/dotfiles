@@ -1,7 +1,7 @@
 {home-manager, user, ...}: {
   imports = [
     ../system/shared
-    ../system/darwin
+    ../system/linux
     home-manager.nixosModules.default
     ../home-manager
     ../home-manager/linux
