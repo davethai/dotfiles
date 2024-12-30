@@ -8,7 +8,7 @@ in {
     ./programs
   ];
 
-  home = {
+  home-manager.home = {
     stateVersion = "23.05";
     username = "davethai";
   } // packages // programs;
