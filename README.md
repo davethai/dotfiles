@@ -45,7 +45,7 @@ nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/.do
 2. Apply the appropriate NixOS hostname configuration (ex: `dewgong` is shown here) and shutdown the WSL 2 Virtual Machine (VM)
 
 ```shell
-sudo nixos-rebuild switch --flake ~/.dotfiles/nix#dewgong.nix && sudo shutdown -h now
+nix-shell -p git --run 'sudo nixos-rebuild switch --flake ~/.dotfiles/nix#dewgong.nix && sudo shutdown -h now'
 ```
 
 3. Reconnect to WSL 2 VM
