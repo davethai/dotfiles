@@ -11,6 +11,7 @@ in {
     ls = "${getExe eza} -h --git --icons --color=auto --group-directories-first -s extension";
 
     # git
+    gst = "git status";
     gaa = "git add .";
     gc = "git commit";
     gp = "git push";

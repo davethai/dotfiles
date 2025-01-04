@@ -36,7 +36,7 @@
           inputs.homebrew.darwinModules.nix-homebrew
           inputs.home-manager.darwinModules.default
           ../homes
-          # ../homes/davethai/darwin.nix
+          ../homes/davethai/darwin.nix
         ];
       };
     };
