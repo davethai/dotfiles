@@ -11,7 +11,7 @@
         specialArgs = {inherit self inputs;};
         modules = [
           ../modules/shared
-          # ../modules/nixos
+          ../modules/nixos
           ./nixos/dewgong/host.nix
           inputs.agenix.nixosModules.default
           inputs.home-manager.nixosModules.default
