@@ -135,5 +135,5 @@ cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
 
 ## Credits
 
-[@use-the-fork](https://github.com/use-the-fork) - for introducing to me to Nix!
-[@NotAShelf/nyx](https://github.com/NotAShelf/nyx) - scalable file structure and code inspiration
+- [@use-the-fork](https://github.com/use-the-fork) - for introducing to me to Nix!
+- [@NotAShelf/nyx](https://github.com/NotAShelf/nyx) - scalable file structure and code inspiration
