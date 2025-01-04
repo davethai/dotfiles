@@ -18,4 +18,6 @@
       fsType = "ext4";
     };
   };
+
+  boot.loader = {};
 }
