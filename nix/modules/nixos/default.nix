@@ -20,4 +20,5 @@
   };
 
   boot.loader = {};
+  boot.loader.grub = {};
 }
