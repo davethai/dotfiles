@@ -11,4 +11,13 @@
       # initialPassword = "alpha";
     };
   };
+
+  fileSystems = {
+    "/" = {
+      device = "/dev/root";
+      fsType = "ext4";
+    };
+  };
+
+  boot.loader = null;
 }
