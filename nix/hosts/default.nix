@@ -14,7 +14,6 @@
           # ../modules/nixos
           ./nixos/dewgong/host.nix
           inputs.agenix.nixosModules.default
-          inputs.homebrew.nixosModules.nix-homebrew
           inputs.home-manager.nixosModules.default
           ../homes
           ../homes/davethai/nixos.nix
