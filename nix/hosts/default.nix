@@ -12,7 +12,7 @@
         modules = [
           ../modules/shared
           inputs.nixos-wsl.nixosModules.default
-          ../modules/nixos-wsl
+          ../modules/wsl
           ./nixos/dewgong/host.nix
           inputs.agenix.nixosModules.default
           inputs.home-manager.nixosModules.default
