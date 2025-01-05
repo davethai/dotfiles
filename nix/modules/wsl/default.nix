@@ -1,7 +1,7 @@
 { ... }: {
-  # imports = [
-  #   ./users
-  # ];
+  imports = [
+    ./packages
+  ];
 
   users.users.davethai.isNormalUser = true;
   users.users.davethai.group = "davethai";
