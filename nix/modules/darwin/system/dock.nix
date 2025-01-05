@@ -7,8 +7,10 @@ _: {
       "/System/Applications/Messages.app"
       "/System/Applications/Notes.app"
       "/Applications/Google Chrome.app"
+      "/Applications/Ghostty.app"
       "/Applications/Visual Studio Code.app"
       "/Applications/Discord.app"
+      "/Applications/Figma.app"
       "/Applications/Affinity Photo 2.app"
       "/Applications/Affinity Designer 2.app"
     ];

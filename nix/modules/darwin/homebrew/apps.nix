@@ -23,6 +23,7 @@
       "obs"
       "google-chrome"
       "flux"
+      "ghostty"
     ];
     masApps = {
       "Affinity Photo 2" = 1616822987;
