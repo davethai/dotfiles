@@ -11,12 +11,13 @@
         specialArgs = {inherit self inputs;};
         modules = [
           ../modules/shared
-          ../modules/nixos
+          inputs.wsl.nixosModules.default
+          ../modules/nixos-wsl
           ./nixos/dewgong/host.nix
           inputs.agenix.nixosModules.default
           inputs.home-manager.nixosModules.default
           ../homes
-          ../homes/davethai/nixos.nix
+          ../homes/davethai/wsl.nix
         ];
       };
     };
