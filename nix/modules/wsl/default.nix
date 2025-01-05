@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./packages
     ./programs
@@ -12,5 +12,6 @@
   wsl = {
     enable = true;
     defaultUser = "davethai";
+    shell = pkgs.zsh;
   };
 }
