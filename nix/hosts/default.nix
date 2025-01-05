@@ -13,7 +13,7 @@
           ../modules/shared
           inputs.nixos-wsl.nixosModules.default
           ../modules/wsl
-          ./nixos/dewgong/host.nix
+          ./wsl/dewgong/host.nix
           inputs.agenix.nixosModules.default
           inputs.home-manager.nixosModules.default
           ../homes
