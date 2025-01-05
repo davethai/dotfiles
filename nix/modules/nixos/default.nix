@@ -11,5 +11,5 @@
     };
   };
 
-  wsl.eable = true;
+  services.wsl.eable = true;
 }
