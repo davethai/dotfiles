@@ -1,6 +1,10 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    nix-ld
+    wget
   ];
+
+  programs.nix-ld = {
+    enable = true;
+  };
 }
