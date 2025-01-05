@@ -1,6 +1,7 @@
 { ... }: {
   imports = [
     ./packages
+    ./programs
   ];
 
   users.users.davethai.isNormalUser = true;
