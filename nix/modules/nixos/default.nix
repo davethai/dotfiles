@@ -4,21 +4,12 @@
   users = {
     groups.davethai = {};
     users.davethai = {
-      isNormalUser = true;
+      isSystemUser = true;
       extraGroups = ["davethai"];
       home = "/home/davethai";
       createHome = true;
-      # initialPassword = "alpha";
     };
   };
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/root";
-      fsType = "ext4";
-    };
-  };
-
-  boot.loader = {};
-  boot.loader.grub = {};
+  wsl.eable = true;
 }
