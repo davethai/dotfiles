@@ -112,6 +112,7 @@ cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
 ## Host Naming Convention
 
 **Host Short Name:** Pokemon
+
 **Host Long Name:** [LOCATION]-[TYPE]-[ROLE]-[UNIQUE_ID]
 
 **LOCATION** (Not Applicable to TYPE `L`)
