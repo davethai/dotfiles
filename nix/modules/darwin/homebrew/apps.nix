@@ -22,6 +22,8 @@
       "elgato-camera-hub"
       "obs"
       "google-chrome"
+      "brave-browser"
+      "signal"
       "flux"
       "ghostty"
     ];
