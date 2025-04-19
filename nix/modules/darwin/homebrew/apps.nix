@@ -2,6 +2,8 @@
   homebrew = {
     brews = [
       "mas"
+      "cdktf"
+      "terraform"
     ];
     casks = [
       "blender"

@@ -5,10 +5,6 @@ let
   finder = import ./finder.nix { inherit pkgs config; };
 in
 { 
-  imports = [
-    ./nix/services.nix
-  ];
-
   system = {
     # Set Git commit hash for darwin-version.
     configurationRevision = self.rev or self.dirtyRev or null;
