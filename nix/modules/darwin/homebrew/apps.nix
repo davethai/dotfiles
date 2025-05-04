@@ -4,6 +4,7 @@
       "mas"
       "cdktf"
       "terraform"
+      "podman"
     ];
     casks = [
       "blender"
@@ -28,6 +29,7 @@
       "signal"
       "flux"
       "ghostty"
+      "podman-desktop"
     ];
     masApps = {
       "Affinity Photo 2" = 1616822987;
