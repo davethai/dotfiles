@@ -97,13 +97,11 @@ nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch 
 cd ~/.dotfiles
 ```
 
-4. Install [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/) imperatively
+4. Install Xcode from Mac App Store imperatively
 
-5. Install Xcode from Mac App Store imperatively
+5. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
 
-6. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
-
-7. Copy vscode icons to extensions
+6. Copy vscode icons to extensions
 
 ```shell
 cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
