@@ -133,12 +133,15 @@ cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
 **UNIQUE_ID** (Numeric)
 
 ## Maintenance
+
 1. Update flake
+
 ```nix
 nix flake update
 ```
 
 2. Rebuild
+
 ```nix
 darwin-rebuild swith --flake ~/.dotfiles/nix#hostname
 ```

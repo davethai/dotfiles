@@ -5,6 +5,9 @@
       "cdktf"
       "terraform"
       "podman"
+      "kubernetes-cli"
+      "k9s"
+      "kind"
     ];
     casks = [
       "blender"
