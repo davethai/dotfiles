@@ -16,6 +16,9 @@ in {
     gc = "git commit";
     gp = "git push";
 
+    c = "clear";
+    k = "kubectl";
+
     # quick navigation
     ".." = "cd ..";
     "..." = "cd ../../";
