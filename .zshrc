@@ -71,6 +71,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # 7) Aliases
 alias ls='ls --color'
 alias c='clear'
+alias k='kubectl'
 
 
 # 8) Shell integrations
