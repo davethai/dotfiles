@@ -9,6 +9,7 @@ in {
     # quality of life aliases
     cat = "${getExe bat} --style=plain";
     ls = "${getExe eza} -h --git --icons --color=auto --group-directories-first -s extension";
+    c = "clear";
 
     # git
     gst = "git status";
@@ -16,8 +17,9 @@ in {
     gc = "git commit";
     gp = "git push";
 
-    c = "clear";
+    # k8s
     k = "kubectl";
+    kgp = "kubectl get pods";
 
     # quick navigation
     ".." = "cd ..";
