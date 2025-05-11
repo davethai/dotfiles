@@ -40,7 +40,6 @@ in {
     kgj = "kubectl get jobs";
     kgcj = "kubectl get cronjobs";
     kging = "kubectl get ingresses";
-    kging = "kubectl get ingresses";
     kgnetpol = "kubectl get networkpolicies";
 
     # quick navigation
