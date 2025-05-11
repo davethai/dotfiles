@@ -31,7 +31,6 @@ in {
     kgpvc = "kubectl get persistentvolumeclaims";
     kgcm = "kubectl get configmaps";
     kgs = "kubectl get secrets";
-    kgs = "kubectl get secrets";
     kgev = "kubectl get events";
     kgsa = "kubectl get serviceaccounts";
     kgd = "kubectl get deploy";
