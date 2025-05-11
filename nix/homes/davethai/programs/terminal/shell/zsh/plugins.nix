@@ -25,7 +25,7 @@
         }
       ];
 
-      initExtra = ''
+      initContent = ''
         source ~/.dotfiles/.p10k.zsh
       '';
     };
