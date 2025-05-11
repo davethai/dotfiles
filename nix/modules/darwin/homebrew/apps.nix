@@ -8,6 +8,7 @@
       "kubernetes-cli"
       "k9s"
       "kind"
+      "helm"
     ];
     casks = [
       "blender"
