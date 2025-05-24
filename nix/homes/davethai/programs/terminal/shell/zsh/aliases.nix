@@ -45,6 +45,9 @@ in {
     # Laravel
     a = "php artisan";
 
+    # Podman
+    p = "podman";
+
     # quick navigation
     ".." = "cd ..";
     "..." = "cd ../../";
