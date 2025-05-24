@@ -42,6 +42,9 @@ in {
     kging = "kubectl get ingresses";
     kgnetpol = "kubectl get networkpolicies";
 
+    # Laravel
+    a = "php artisan";
+
     # quick navigation
     ".." = "cd ..";
     "..." = "cd ../../";
