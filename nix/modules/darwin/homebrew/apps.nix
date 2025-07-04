@@ -34,6 +34,7 @@
       "flux"
       "ghostty"
       "podman-desktop"
+      "zen"
     ];
     masApps = {
       "Affinity Photo 2" = 1616822987;

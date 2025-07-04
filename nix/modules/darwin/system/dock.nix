@@ -8,7 +8,7 @@ _: {
       "/Applications/Signal.app"
       "/System/Applications/Notes.app"
       "/Applications/Google Chrome.app"
-      "/Applications/Brave Browser.app"
+      "/Applications/Zen.app"
       "/Applications/Ghostty.app"
       "/Applications/Visual Studio Code.app"
       "/Applications/Discord.app"
