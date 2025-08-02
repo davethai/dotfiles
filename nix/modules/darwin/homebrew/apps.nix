@@ -9,6 +9,7 @@
       "k9s"
       "kind"
       "helm"
+      "tmux"
     ];
     casks = [
       "blender"
