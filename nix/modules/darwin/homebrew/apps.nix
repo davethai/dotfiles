@@ -10,6 +10,7 @@
       "kind"
       "helm"
       "tmux"
+      "argocd"
     ];
     casks = [
       "blender"
