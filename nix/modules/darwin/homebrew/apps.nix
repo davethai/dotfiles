@@ -11,6 +11,7 @@
       "helm"
       "tmux"
       "argocd"
+      "trivy"
     ];
     casks = [
       "blender"
