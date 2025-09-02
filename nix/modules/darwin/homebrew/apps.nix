@@ -12,6 +12,7 @@
       "tmux"
       "argocd"
       "trivy"
+      "cosign"
     ];
     casks = [
       "blender"
