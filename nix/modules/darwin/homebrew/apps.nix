@@ -1,5 +1,8 @@
 { ... }: {
   homebrew = {
+    taps = [
+      "argoproj/tap"
+    ];
     brews = [
       "mas"
       "cdktf"
@@ -12,6 +15,7 @@
       "tmux"
       "argocd"
       "argocd-autopilot"
+      "kubectl-argo-rollouts"
       "trivy"
       "cosign"
     ];
