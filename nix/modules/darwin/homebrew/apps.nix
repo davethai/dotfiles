@@ -11,6 +11,7 @@
       "helm"
       "tmux"
       "argocd"
+      "argocd-autopilot"
       "trivy"
       "cosign"
     ];
