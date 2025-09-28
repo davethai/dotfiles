@@ -7,7 +7,7 @@ _: {
       "/System/Applications/Messages.app"
       "/Applications/Signal.app"
       "/System/Applications/Notes.app"
-      "/Applications/Reminders.app"
+      "/System/Applications/Reminders.app"
       "/Applications/Google Chrome.app"
       "/Applications/Ghostty.app"
       "/Applications/Visual Studio Code.app"
