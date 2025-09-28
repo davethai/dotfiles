@@ -2,6 +2,7 @@
   homebrew = {
     taps = [
       "argoproj/tap"
+      "eranif/codelite"
     ];
     brews = [
       "mas"
@@ -43,7 +44,7 @@
       "flux"
       "ghostty"
       "podman-desktop"
-      "zen"
+      "codelite-official"
     ];
     masApps = {
       "Affinity Photo 2" = 1616822987;
