@@ -71,7 +71,7 @@ sh <(curl -L https://nixos.org/nix/install)
 
 #### Install Xcode Command Line Tools (Installs git)
 
-1. Run the command below
+2. Run the command below
 
 ```shell
 xcode-select --install
@@ -88,7 +88,7 @@ nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/.do
 2. Run `nix-darwin` with `flake.nix` and replace with the appropriate hostname. `rhydon` is shown here.
 
 ```shell
-nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/.dotfiles/nix#rhydon
+sudo nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/.dotfiles/nix#rhydon
 ```
 
 3. `cd` into `$HOME/.dotfiles` directory
