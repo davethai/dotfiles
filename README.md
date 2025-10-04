@@ -82,7 +82,7 @@ xcode-select --install
 1. Set git `name` and `email`
 ```shell
 git config --global user.name "Dave Thai"
-git config --global user.email "change-me@gmail.com"
+git config --global user.email "your-email@example.com"
 ```
 
 #### Installation
@@ -111,6 +111,17 @@ sudo nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- sw
 ```shell
 cd ~/.dotfiles
 ```
+
+#### GitHub SSH Keys
+1. Generate SSH Key (enter through all prompts)
+```shell
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+2. Copy Public SSH Key
+```shell
+cat ~/.ssh/id_ed25519.pub
+```
+3. Add to GitHub
 
 ## Application Setup
 
