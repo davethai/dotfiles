@@ -47,9 +47,6 @@
       "codelite-official"
     ];
     masApps = {
-      # "Affinity Photo 2" = 1616822987;
-      # "Affinity Designer 2" = 1616831348;
-      # "Affinity Publisher 2" = 1606941598;
       "Amazon Kindle" = 302584613;
       "Logic Pro" = 634148309;
     };
