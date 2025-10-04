@@ -24,8 +24,8 @@
 
     darwinConfigurations = {
       # Rhydon L-WS-001
-      # Apple MacBook Pro M1 Max 16" (2021)
-      # RAM - 32GB
+      # Apple MacBook Pro M4 Max 16" (2025)
+      # RAM - 48GB
       rhydon = inputs.darwin.lib.darwinSystem {
         specialArgs = {inherit self inputs;};
         modules = [
