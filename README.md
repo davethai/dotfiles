@@ -77,6 +77,14 @@ sh <(curl -L https://nixos.org/nix/install)
 xcode-select --install
 ```
 
+#### Git Config
+
+1. Set git `name` and `email`
+```shell
+git config --global user.name "Dave Thai"
+git config --global user.email "change-me@gmail.com"
+```
+
 #### Installation
 
 1. Clone dotfiles repo
@@ -111,6 +119,8 @@ cd ~/.dotfiles
 ```shell
 cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
 ```
+
+8. Due to Affinity Products no longer be listed on the Mac App Store, downlod on [Affinity Website](https://store.serif.com/en-us/account/licences)
 
 ## Host Naming Convention
 
