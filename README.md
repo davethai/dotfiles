@@ -92,21 +92,21 @@ nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/.do
 sudo xcodebuild -license accept
 ```
 
-3. Run `nix-darwin` with `flake.nix` and replace with the appropriate hostname. `rhydon` is shown here.
+4. Run `nix-darwin` with `flake.nix` and replace with the appropriate hostname. `rhydon` is shown here.
 
 ```shell
 sudo nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/.dotfiles/nix#rhydon
 ```
 
-4. `cd` into `$HOME/.dotfiles` directory
+5. `cd` into `$HOME/.dotfiles` directory
 
 ```shell
 cd ~/.dotfiles
 ```
 
-5. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
+6. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
 
-6. Copy vscode icons to extensions
+7. Copy vscode icons to extensions
 
 ```shell
 cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
