@@ -85,19 +85,24 @@ xcode-select --install
 nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/.dotfiles'
 ```
 
-2. Run `nix-darwin` with `flake.nix` and replace with the appropriate hostname. `rhydon` is shown here.
+2. Install Xcode from Mac App Store imperatively
+
+3. Agree to Xcode License
+```shell
+sudo xcodebuild -license accept
+```
+
+3. Run `nix-darwin` with `flake.nix` and replace with the appropriate hostname. `rhydon` is shown here.
 
 ```shell
 sudo nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/.dotfiles/nix#rhydon
 ```
 
-3. `cd` into `$HOME/.dotfiles` directory
+4. `cd` into `$HOME/.dotfiles` directory
 
 ```shell
 cd ~/.dotfiles
 ```
-
-4. Install Xcode from Mac App Store imperatively
 
 5. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
 
