@@ -112,15 +112,25 @@ sudo nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- sw
 cd ~/.dotfiles
 ```
 
-6. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
+## Application Setup
 
-7. Copy vscode icons to extensions
+### VSCode
+
+1. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
+
+2. Copy vscode icons to extensions
 
 ```shell
 cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
 ```
 
-8. Due to Affinity Products no longer be listed on the Mac App Store, downlod on [Affinity Website](https://store.serif.com/en-us/account/licences)
+### Affinity Suite (Photo, Designerm Publisher)
+
+1. Due to Affinity Products no longer be listed on the Mac App Store, downlod on [Affinity Website](https://store.serif.com/en-us/account/licences)
+
+### Google Chrome
+
+1. Sign in to sync settings
 
 ## Host Naming Convention
 
