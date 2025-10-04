@@ -124,7 +124,7 @@ cd ~/.dotfiles
 cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
 ```
 
-### Affinity Suite (Photo, Designerm Publisher)
+### Affinity Suite (Photo, Designer, Publisher)
 
 1. Due to Affinity Products no longer be listed on the Mac App Store, downlod on [Affinity Website](https://store.serif.com/en-us/account/licences)
 
