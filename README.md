@@ -71,7 +71,7 @@ sh <(curl -L https://nixos.org/nix/install)
 
 #### Install Xcode Command Line Tools (Installs git)
 
-1. Run the command below
+2. Run the command below
 
 ```shell
 xcode-select --install
@@ -85,23 +85,28 @@ xcode-select --install
 nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/.dotfiles'
 ```
 
-2. Run `nix-darwin` with `flake.nix` and replace with the appropriate hostname. `rhydon` is shown here.
+2. Install Xcode from Mac App Store imperatively
 
+3. Agree to Xcode License
 ```shell
-nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/.dotfiles/nix#rhydon
+sudo xcodebuild -license accept
 ```
 
-3. `cd` into `$HOME/.dotfiles` directory
+4. Run `nix-darwin` with `flake.nix` and replace with the appropriate hostname. `rhydon` is shown here.
+
+```shell
+sudo nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/.dotfiles/nix#rhydon
+```
+
+5. `cd` into `$HOME/.dotfiles` directory
 
 ```shell
 cd ~/.dotfiles
 ```
 
-4. Install Xcode from Mac App Store imperatively
+6. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
 
-5. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
-
-6. Copy vscode icons to extensions
+7. Copy vscode icons to extensions
 
 ```shell
 cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
