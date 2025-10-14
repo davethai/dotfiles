@@ -77,6 +77,14 @@ sh <(curl -L https://nixos.org/nix/install)
 xcode-select --install
 ```
 
+#### Git Config
+
+1. Set git `name` and `email`
+```shell
+git config --global user.name "Dave Thai"
+git config --global user.email "your-email@example.com"
+```
+
 #### Installation
 
 1. Clone dotfiles repo
@@ -104,13 +112,36 @@ sudo nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- sw
 cd ~/.dotfiles
 ```
 
-6. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
+#### GitHub SSH Keys
+1. Generate SSH Key (enter through all prompts)
+```shell
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+2. Copy Public SSH Key
+```shell
+cat ~/.ssh/id_ed25519.pub
+```
+3. Add to GitHub
 
-7. Copy vscode icons to extensions
+## Application Setup
+
+### VSCode
+
+1. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
+
+2. Copy vscode icons to extensions
 
 ```shell
 cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
 ```
+
+### Affinity Suite (Photo, Designer, Publisher)
+
+1. Due to Affinity Products no longer be listed on the Mac App Store, downlod on [Affinity Website](https://store.serif.com/en-us/account/licences)
+
+### Google Chrome
+
+1. Sign in to sync settings
 
 ## Host Naming Convention
 
