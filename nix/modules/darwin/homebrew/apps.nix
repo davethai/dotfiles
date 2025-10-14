@@ -3,6 +3,7 @@
     taps = [
       "argoproj/tap"
       "eranif/codelite"
+      "slp/krunkit"
     ];
     brews = [
       "mas"
@@ -19,6 +20,7 @@
       "kubectl-argo-rollouts"
       "trivy"
       "cosign"
+      "krunkit"
     ];
     casks = [
       "blender"
@@ -45,6 +47,7 @@
       "ghostty"
       "podman-desktop"
       "codelite-official"
+      "claude-code"
     ];
     masApps = {
       "Amazon Kindle" = 302584613;
