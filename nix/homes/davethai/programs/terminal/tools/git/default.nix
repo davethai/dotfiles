@@ -2,9 +2,11 @@
 {
   programs.git = {
     enable = true;
-    userName = "davethai";
-    userEmail = "dave@davethai.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "davethai";
+        email = "dave@davethai.com";
+      };
       core.editor = "nvim";
       pull.rebase = true;
     };
