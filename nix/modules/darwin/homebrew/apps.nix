@@ -2,7 +2,6 @@
   homebrew = {
     taps = [
       "argoproj/tap"
-      "eranif/codelite"
       "slp/krunkit"
     ];
     brews = [
@@ -46,7 +45,6 @@
       "flux"
       "ghostty"
       "podman-desktop"
-      "codelite-official"
       "claude-code"
     ];
     masApps = {
