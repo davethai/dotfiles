@@ -20,6 +20,7 @@
       "trivy"
       "cosign"
       "krunkit"
+      "python"
     ];
     casks = [
       "blender"
