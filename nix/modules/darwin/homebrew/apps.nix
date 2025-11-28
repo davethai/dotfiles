@@ -21,6 +21,7 @@
       "cosign"
       "krunkit"
       "python"
+      "uv"
     ];
     casks = [
       "blender"
