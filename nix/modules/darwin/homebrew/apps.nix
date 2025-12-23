@@ -20,7 +20,8 @@
       "trivy"
       "cosign"
       "krunkit"
-      "python"
+      "python@3.12"
+      "python@3.14"
       "uv"
     ];
     casks = [
@@ -54,4 +55,5 @@
       "Logic Pro" = 634148309;
     };
   };
+
 }
