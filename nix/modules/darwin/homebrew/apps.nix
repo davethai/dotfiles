@@ -23,6 +23,8 @@
       "python@3.12"
       "python@3.14"
       "uv"
+      "pnpm"
+      "nvm"
     ];
     casks = [
       "blender"
