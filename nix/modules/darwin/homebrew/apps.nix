@@ -51,6 +51,8 @@
       "ghostty"
       "podman-desktop"
       "claude-code"
+      "flutter"
+      "android-studio"
     ];
     masApps = {
       "Amazon Kindle" = 302584613;
