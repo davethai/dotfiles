@@ -47,7 +47,7 @@
       "google-chrome"
       "brave-browser"
       "signal"
-      "flux"
+      "flux-app"
       "ghostty"
       "podman-desktop"
       "claude-code"
