@@ -2,7 +2,6 @@
   homebrew = {
     taps = [
       "argoproj/tap"
-      "slp/krunkit"
     ];
     brews = [
       "mas"
@@ -19,8 +18,6 @@
       "kubectl-argo-rollouts"
       "trivy"
       "cosign"
-      "krunkit"
-      "python@3.12"
       "python@3.14"
       "uv"
       "pnpm"
