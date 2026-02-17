@@ -22,6 +22,7 @@
       "uv"
       "pnpm"
       "nvm"
+      "just"
     ];
     casks = [
       "blender"
