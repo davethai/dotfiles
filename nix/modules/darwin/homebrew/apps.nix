@@ -23,6 +23,7 @@
       "pnpm"
       "nvm"
       "just"
+      "ollama"
     ];
     casks = [
       "blender"
