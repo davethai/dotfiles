@@ -24,6 +24,7 @@
       "nvm"
       "just"
       "ollama"
+      "ffmpeg"
     ];
     casks = [
       "blender"
@@ -33,6 +34,7 @@
       "zoom"
       "figma"
       "visual-studio-code"
+      "cursor"
       "pgadmin4"
       "tableplus"
       "steam"
