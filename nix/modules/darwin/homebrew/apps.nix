@@ -2,12 +2,14 @@
   homebrew = {
     taps = [
       "argoproj/tap"
+      "slp/krunkit"
     ];
     brews = [
       "mas"
       "cdktf"
       "terraform"
       "podman"
+      "krunkit"
       "kubernetes-cli"
       "k9s"
       "kind"
