@@ -41,7 +41,7 @@
       "tableplus"
       "steam"
       "logi-options+"
-      "imageoptim"
+      "imageoptim" 
       "rectangle-pro"
       "dropbox"
       "malwarebytes"
@@ -56,6 +56,7 @@
       "claude-code"
       "flutter"
       "android-studio"
+      "opensuperwhisper"
     ];
     masApps = {
       "Amazon Kindle" = 302584613;
