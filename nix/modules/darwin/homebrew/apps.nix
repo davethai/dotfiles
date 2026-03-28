@@ -56,7 +56,7 @@
       "claude-code"
       "flutter"
       "android-studio"
-      "opensuperwhisper"
+      "spokenly"
     ];
     masApps = {
       "Amazon Kindle" = 302584613;
