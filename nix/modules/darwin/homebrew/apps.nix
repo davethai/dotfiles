@@ -59,8 +59,8 @@
       "spokenly"
     ];
     masApps = {
-      "Amazon Kindle" = 302584613;
-      "Logic Pro" = 634148309;
+      # "Amazon Kindle" = 302584613; # already installed, mas fails on reinstall
+      # "Logic Pro" = 634148309; # already installed, mas fails on reinstall
     };
   };
 
