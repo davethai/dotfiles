@@ -27,6 +27,7 @@
       "just"
       "ollama"
       "ffmpeg"
+      "gh"
     ];
     casks = [
       "blender"
