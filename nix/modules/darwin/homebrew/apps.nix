@@ -3,11 +3,11 @@
     taps = [
       "argoproj/tap"
       "slp/krunkit"
+      "hashicorp/tap"
     ];
     brews = [
       "mas"
       "cdktf"
-      "terraform"
       "podman"
       "krunkit"
       "kubernetes-cli"
@@ -28,6 +28,7 @@
       "ollama"
       "ffmpeg"
       "gh"
+      "hashicorp/tap/terraform"
     ];
     casks = [
       "blender"
