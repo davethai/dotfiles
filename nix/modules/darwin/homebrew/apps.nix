@@ -29,6 +29,7 @@
       "ffmpeg"
       "gh"
       "hashicorp/tap/terraform"
+      "skopeo"
     ];
     casks = [
       "blender"
