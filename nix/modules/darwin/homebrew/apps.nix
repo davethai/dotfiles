@@ -3,6 +3,7 @@
     taps = [
       "argoproj/tap"
       "slp/krunkit"
+      "f1bonacc1/tap"
       "hashicorp/tap"
     ];
     brews = [
@@ -29,7 +30,9 @@
       "ffmpeg"
       "gh"
       "hashicorp/tap/terraform"
+      "f1bonacc1/tap/process-compose"
       "skopeo"
+      "rust"
     ];
     casks = [
       "blender"
@@ -60,6 +63,7 @@
       "flutter"
       "android-studio"
       "spokenly"
+
     ];
     masApps = {
       # "Amazon Kindle" = 302584613; # already installed, mas fails on reinstall
