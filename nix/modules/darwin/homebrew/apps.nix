@@ -34,6 +34,7 @@
       "skopeo"
       "rust"
       "lazydocker"
+      "php"
     ];
     casks = [
       "blender"
