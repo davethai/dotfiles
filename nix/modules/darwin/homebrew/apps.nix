@@ -61,9 +61,7 @@
       "ghostty"
       "podman-desktop"
       "claude-code"
-      "flutter"
       "android-studio"
-      "spokenly"
     ];
     masApps = {
       # "Amazon Kindle" = 302584613; # already installed, mas fails on reinstall
