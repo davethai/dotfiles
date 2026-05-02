@@ -63,6 +63,7 @@
       "podman-desktop"
       "claude-code"
       "android-studio"
+      "tailscale-app"
     ];
     masApps = {
       # "Amazon Kindle" = 302584613; # already installed, mas fails on reinstall
