@@ -26,7 +26,7 @@
 
     homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
-
+      inputs.brew-src.url = "github:Homebrew/brew/5.1.12";
     };
 
     agenix = {

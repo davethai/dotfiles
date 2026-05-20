@@ -45,7 +45,8 @@
       "figma"
       "visual-studio-code"
       "cursor"
-      "pgadmin4"
+      # "pgadmin4" # FTP at ftp.postgresql.org flaking on 9.15 dmg; re-enable when stable
+
       "tableplus"
       "steam"
       "logi-options+"
