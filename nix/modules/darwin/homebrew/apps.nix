@@ -5,6 +5,7 @@
       "slp/krunkit"
       "f1bonacc1/tap"
       "hashicorp/tap"
+      "dbt-labs/dbt-cli"
     ];
     brews = [
       "mas"
@@ -35,6 +36,7 @@
       "rust"
       "lazydocker"
       "php"
+      "dbt"
     ];
     casks = [
       "blender"
