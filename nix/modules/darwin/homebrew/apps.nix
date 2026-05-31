@@ -6,6 +6,7 @@
       "f1bonacc1/tap"
       "hashicorp/tap"
       "dbt-labs/dbt-cli"
+      "infisical/get-cli"
     ];
     brews = [
       "mas"
@@ -37,6 +38,7 @@
       "lazydocker"
       "php"
       "dbt"
+      "infisical/get-cli/infisical"
     ];
     casks = [
       "blender"
