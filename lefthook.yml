@@ -1,0 +1,8 @@
+pre-commit:
+  parallel: true
+  commands:
+    trufflehog:
+      run: trufflehog filesystem {staged_files} --fail --results=verified,unknown
+      skip:
+        - merge
+        - rebase
