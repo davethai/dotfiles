@@ -69,6 +69,7 @@
       "claude-code"
       "android-studio"
       "tailscale-app"
+      "temurin@21"
     ];
     masApps = {
       # "Amazon Kindle" = 302584613; # already installed, mas fails on reinstall
