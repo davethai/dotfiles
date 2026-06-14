@@ -12,14 +12,16 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# 1) Plugin Manager - Zinit
-# Set the directory we want to store zinit and plugins
+# 1) Plugin Manager - Zinit (pinned for supply-chain safety; bump deliberately)
+ZINIT_PIN="v3.14.0"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
    mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+   git clone --depth 1 --branch "$ZINIT_PIN" https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+elif [ "$(git -C "$ZINIT_HOME" describe --tags --exact-match HEAD 2>/dev/null)" != "$ZINIT_PIN" ]; then
+   git -C "$ZINIT_HOME" fetch --tags --depth 1 origin "refs/tags/$ZINIT_PIN:refs/tags/$ZINIT_PIN" >/dev/null 2>&1
+   git -C "$ZINIT_HOME" checkout --quiet "$ZINIT_PIN"
 fi
 
 # Source/Load zinit
