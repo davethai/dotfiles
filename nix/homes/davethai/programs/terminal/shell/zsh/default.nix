@@ -21,6 +21,13 @@
       source ${./rc/binds.zsh}
       source ${./rc/comp.zsh}
       source ${./rc/fzf.tab.zsh}
+
+      # Activate mise so per-project toolchains (mise.toml: node, just, hk, ...)
+      # land on PATH. mise itself is installed via Homebrew (see apps.nix); the
+      # guard keeps the shell working if it isn't present.
+      if command -v mise >/dev/null; then
+        eval "$(mise activate zsh)"
+      fi
     '';
   };
 }
