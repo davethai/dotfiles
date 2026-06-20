@@ -25,6 +25,7 @@
       "cosign"
       "python@3.14"
       "uv"
+      "mise"
       "pnpm"
       "nvm"
       "just"
