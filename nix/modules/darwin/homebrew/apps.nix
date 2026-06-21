@@ -51,7 +51,7 @@
       "visual-studio-code"
       "cursor"
       # "pgadmin4" # FTP at ftp.postgresql.org flaking on 9.15 dmg; re-enable when stable
-
+      "orbstack"
       "tableplus"
       "steam"
       "logi-options+"
