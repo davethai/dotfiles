@@ -46,7 +46,12 @@
 ## Update everything (routine)
 
 ```sh
-chezmoi update          # pull repo + apply (re-runs mise/brew on changes)
-mise upgrade            # bump CLI tools
-brew upgrade            # bump casks (macOS)
+mise upgrade                  # CLI toolchain
+brew update && brew upgrade   # macOS apps + native CLIs (incl. brew-managed mise)
+zinit update --all            # zsh plugins
 ```
+
+Or just the `up` alias (defined in `zsh/aliases.zsh`), which runs all three.
+
+Config changes are separate: edit the repo, then `chezmoi apply`. See the
+[runbook](../runbook.md#routine-operations) for the `apply` vs `update` distinction.

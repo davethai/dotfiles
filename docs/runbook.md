@@ -5,22 +5,43 @@ Operational reference for a machine already set up. For first-time setup see the
 
 ## Routine operations
 
-### Pull and apply the latest config
+### Update everything
+One command per layer (or just run the `up` alias):
 ```sh
-chezmoi update          # git pull + apply; re-runs mise/brew if their files changed
-```
+mise upgrade                  # CLI toolchain
+brew update && brew upgrade   # macOS apps (casks) + native CLIs (incl. mise if brew-managed)
+zinit update --all            # zsh plugins
 
-### Update tools
-```sh
-mise upgrade            # CLI tools (both OSes)
-brew upgrade            # macOS casks/formulae
+# all of the above in one shot:
+up
 ```
+`mise self-update` only applies when mise was installed via its own installer
+(`curl mise.run`). When mise is package-managed (Homebrew on macOS), `brew
+upgrade` keeps it current and `self-update` is a no-op — the `up` alias handles
+both cases.
 
 ### Change a config file
+On this machine (where `~/.dotfiles` is your editable source):
 ```sh
 chezmoi edit ~/.zshrc   # edit source; saves + applies
-chezmoi diff            # always preview first
+chezmoi diff            # preview pending changes
+chezmoi apply           # write changes to $HOME
 ```
+After editing the **Brewfile** or **mise config**, run `chezmoi apply` (not the
+`upgrade` commands) — that re-runs `brew bundle` / `mise install` to pick up
+*added* packages. `brew upgrade` / `mise upgrade` only bump versions of things
+already installed.
+
+### Pull config changes from another machine
+```sh
+chezmoi update          # git pull ~/.dotfiles + apply
+```
+Use this only on a *secondary* machine. On your primary machine you edit the
+repo directly and run `chezmoi apply` — `chezmoi update` would pull from origin
+and could conflict with uncommitted local edits.
+
+### Add a tool / app
+See [add-a-package](how-to/add-a-package.md).
 
 ### Add a tool / app
 See [add-a-package](how-to/add-a-package.md).

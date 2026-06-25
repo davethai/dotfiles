@@ -26,7 +26,8 @@ brew "php"
 brew "dbt"
 
 # ── fonts ───────────────────────────────────────────────────────────
-cask "font-jetbrains-mono-nerd-font"
+cask "font-jetbrains-mono-nerd-font"   # Ghostty
+cask "font-fira-code-nerd-font"        # VS Code editor + terminal
 
 # ── GUI casks ───────────────────────────────────────────────────────
 # browsers
