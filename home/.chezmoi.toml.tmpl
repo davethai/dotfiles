@@ -6,6 +6,12 @@
 {{- $workDir := promptStringOnce . "workDir" "Work git dir for includeIf, e.g. ~/Documents/dev/acme/ (blank to skip)" "" -}}
 {{- $profile := promptStringOnce . "profile" "Profile: full (everything) | minimal (shell + core CLI, no k8s/containers/GUI)" "full" -}}
 
+{{ if stat (joinPath .chezmoi.homeDir ".dotfiles" ".git") -}}
+# This machine edits the repo directly at ~/.dotfiles, so point chezmoi there.
+# Fresh clones (`chezmoi init <user>`) have no ~/.dotfiles and use the default.
+sourceDir = {{ (joinPath .chezmoi.homeDir ".dotfiles") | quote }}
+{{ end -}}
+
 [data]
     name = {{ $name | quote }}
     email = {{ $email | quote }}
