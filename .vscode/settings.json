@@ -10,9 +10,12 @@
     ".*starship\\.toml$": "https://starship.rs/config-schema.json"
   },
 
-  // Treat chezmoi templates as their underlying language for highlighting.
+  // Treat chezmoi templates as their underlying language ({{ }} shows as plain
+  // text, but the base language highlights fully).
   "files.associations": {
-    "*.tmpl": "gotemplate",
+    "*.sh.tmpl": "shellscript",
+    "dot_zshrc.tmpl": "shellscript",
+    "*.toml.tmpl": "toml",
     "*.zsh": "shellscript",
     "Brewfile": "ruby"
   },
