@@ -1,0 +1,38 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+# Declarative Dock via dockutil. Re-runs when this script changes.
+# Missing apps are skipped so a partial install doesn't fail the run.
+set -euo pipefail
+
+if ! command -v dockutil &>/dev/null; then
+  echo "==> dockutil not installed yet; skipping (provided by Brewfile)"
+  exit 0
+fi
+
+echo "==> Rebuilding Dock"
+dockutil --no-restart --remove all >/dev/null
+
+apps=(
+  "/System/Applications/Messages.app"
+  "/Applications/Signal.app"
+  "/System/Applications/Notes.app"
+  "/System/Applications/Reminders.app"
+  "/Applications/Google Chrome.app"
+  "/Applications/Ghostty.app"
+  "/Applications/Visual Studio Code.app"
+  "/Applications/Discord.app"
+  "/Applications/Figma.app"
+  "/Applications/Affinity Photo 2.app"
+  "/Applications/Affinity Designer 2.app"
+)
+
+for app in "${apps[@]}"; do
+  if [[ -e "$app" ]]; then
+    dockutil --no-restart --add "$app" >/dev/null
+  else
+    echo "   skip (not installed): $app"
+  fi
+done
+
+killall Dock
+{{- end }}

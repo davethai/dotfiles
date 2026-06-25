@@ -1,0 +1,70 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Starship prompt. Requires a Nerd Font.
+add_newline = true
+
+format = """
+$os\
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
+right_format = """
+$kubernetes\
+$terraform\
+$aws\
+$gcloud\
+$azure"""
+
+[os]
+disabled = false
+[os.symbols]
+Macos = " "
+Ubuntu = " "
+Linux = " "
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+style = "blue bold"
+
+[git_branch]
+symbol = " "
+style = "purple"
+
+[git_status]
+style = "yellow"
+
+[cmd_duration]
+min_time = 3000
+format = "[ $duration]($style) "
+style = "yellow"
+
+[kubernetes]
+disabled = false
+symbol = "☸ "
+format = '[$symbol$context( \($namespace\))]($style) '
+style = "cyan"
+
+[terraform]
+format = "[$symbol$workspace]($style) "
+style = "purple"
+
+[aws]
+format = "[$symbol$profile]($style) "
+style = "yellow"
+
+[gcloud]
+format = "[$symbol$project]($style) "
+style = "blue"
+
+[azure]
+disabled = true
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"

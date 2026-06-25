@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Install/update the global CLI toolchain via mise.
+# Re-runs whenever the mise config changes (hash below).
+set -euo pipefail
+
+# mise config hash: {{ include (joinPath .chezmoi.sourceDir "dot_config/mise/config.toml") | sha256sum }}
+
+export PATH="$HOME/.local/bin:$PATH"
+if ! command -v mise &>/dev/null; then
+  echo "==> mise not found on PATH; skipping (re-run after restarting your shell)"
+  exit 0
+fi
+
+echo "==> mise install (global tools)"
+mise install -y

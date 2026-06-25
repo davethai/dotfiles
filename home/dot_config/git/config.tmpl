@@ -1,0 +1,42 @@
+# ~/.config/git/config — managed by chezmoi.
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+{{- if .signingKey }}
+	signingkey = {{ .chezmoi.homeDir }}/.ssh/id_ed25519.pub
+{{- end }}
+
+[core]
+	editor = nvim
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+
+[merge]
+	conflictStyle = zdiff3
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = {{ .chezmoi.homeDir }}/.config/git/allowed_signers
+
+[commit]
+	gpgsign = {{ if .signingKey }}true{{ else }}false{{ end }}
+
+{{ if and .workEmail .workDir -}}
+# Work identity, applied only inside {{ .workDir }}
+[includeIf "gitdir:{{ .workDir }}"]
+	path = {{ .chezmoi.homeDir }}/.config/git/config-work
+{{- end }}

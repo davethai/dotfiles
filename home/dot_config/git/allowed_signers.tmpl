@@ -1,0 +1,7 @@
+{{- /* SSH allowed signers — maps identities to public keys for `git log --show-signature`. */ -}}
+{{ if .signingKey -}}
+{{ .email }} {{ .signingKey }}
+{{- if .workEmail }}
+{{ .workEmail }} {{ .signingKey }}
+{{- end }}
+{{- end }}

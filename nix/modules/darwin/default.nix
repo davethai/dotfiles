@@ -1,7 +1,0 @@
-{
-  imports = [
-    ./homebrew
-    ./packages
-    ./system
-  ];
-}

@@ -1,0 +1,54 @@
+# ~/.zshrc — managed by chezmoi. Edit the source, then `chezmoi apply`.
+#
+# Load order matters:
+#   1. Homebrew (macOS) onto PATH
+#   2. mise activate  → puts starship/eza/fzf/zoxide/etc. on PATH
+#   3. zinit + plugins
+#   4. modular config (~/.config/zsh/*.zsh)
+#   5. prompt + shell integrations
+
+# ── 1. Homebrew (macOS only) ─────────────────────────────────────────
+{{ if eq .chezmoi.os "darwin" -}}
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+{{- end }}
+
+# ── 2. mise (cross-platform CLI tools) ───────────────────────────────
+export PATH="$HOME/.local/bin:$PATH"
+if command -v mise &>/dev/null; then
+  eval "$(mise activate zsh)"
+fi
+
+# ── 3. zinit plugin manager (pinned for supply-chain safety) ─────────
+ZINIT_PIN="v3.14.0"
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+  mkdir -p "$(dirname "$ZINIT_HOME")"
+  git clone --depth 1 --branch "$ZINIT_PIN" \
+    https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
+# plugins
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-completions
+
+# completions (load before fzf-tab)
+autoload -Uz compinit && compinit
+zinit cdreplay -q
+
+zinit light Aloxaf/fzf-tab
+zinit snippet OMZP::git
+
+# ── 4. modular config ────────────────────────────────────────────────
+for _f in env history comp binds fzf aliases; do
+  [[ -r "${HOME}/.config/zsh/${_f}.zsh" ]] && source "${HOME}/.config/zsh/${_f}.zsh"
+done
+unset _f
+
+# ── 5. prompt + integrations ─────────────────────────────────────────
+command -v starship &>/dev/null && eval "$(starship init zsh)"
+command -v fzf      &>/dev/null && eval "$(fzf --zsh)"
+command -v zoxide   &>/dev/null && eval "$(zoxide init --cmd cd zsh)"

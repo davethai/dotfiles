@@ -1,0 +1,4 @@
+# bat — a cat clone with syntax highlighting. https://github.com/sharkdp/bat
+# The `cat` alias overrides --style with plain; this is the default for `bat`.
+--theme="TwoDark"
+--style="numbers,changes,header"
