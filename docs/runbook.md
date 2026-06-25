@@ -46,6 +46,54 @@ See [add-a-package](how-to/add-a-package.md).
 ### Add a tool / app
 See [add-a-package](how-to/add-a-package.md).
 
+## Convergence, drift & cleanup
+
+This stack is **declarative in intent** but only **convergent where it's safe**.
+Know the difference before you prune.
+
+| Layer | Default behavior | Convergent? |
+|---|---|---|
+| **mise** (CLI tools) | additive (`mise install` only adds) | **Yes, safely** — mise is the complete source of truth for CLI tools |
+| **Homebrew** (apps) | additive — `brew bundle` never removes | No by default (deliberately) |
+
+### Why Homebrew is additive (and stays that way)
+
+Nix/Terraform converge to *exactly* the declared state because **everything**
+lives in one enclosed store. Homebrew has external state Nix didn't — third-party
+taps, transitive dependencies, ad-hoc `brew install`s — and `brew bundle cleanup`
+prunes **every** top-level package you didn't declare, bluntly. (The old
+nix-darwin setup also ran `homebrew.onActivation.cleanup = "none"` for the same
+reason.) So we keep brew additive and never wire cleanup into `chezmoi apply`.
+
+### Pruning mise (safe)
+```sh
+mise prune --dry-run     # preview orphaned tool versions
+mise prune               # remove versions no config references
+```
+Safe because removing a tool from `mise/config.toml` + `mise prune` only affects
+mise-managed tools — nothing else on the system.
+
+### Pruning Homebrew (treat like `terraform plan` → `apply`)
+```sh
+brew bundle cleanup --file=Brewfile          # ⚠️ Homebrew 6 PROMPTS then proceeds
+```
+> **Read the list it prints — that list is your plan.** It removes everything not
+> in the Brewfile, including bootstrap tools if they aren't declared. Reconcile
+> the Brewfile first (add anything worth keeping), *then* run with `--force`.
+> mise lives in `~/.local/bin` (its own installer), **outside** brew, so cleanup
+> can't remove it — keep it that way.
+
+### Resolving drift (installed but not declared)
+
+When a tool is installed but missing from the Brewfile / mise config, either
+**declare** it or **remove** it:
+- CLI tool in the mise registry → add to `mise/config.toml`.
+- CLI tool *not* in mise (e.g. `terraform`, `infisical`, `process-compose`) →
+  add to the `Brewfile` (macOS). Third-party taps are auto-`brew trust`ed by the
+  brew script.
+- A leftover duplicate (e.g. a brew copy of a mise tool) → `brew uninstall <x>`
+  or `mise uninstall <x>` to drop the redundant one.
+
 ## Troubleshooting
 
 ### "Command not found" after install

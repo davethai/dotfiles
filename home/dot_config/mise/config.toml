@@ -53,16 +53,9 @@ trivy      = "latest"
 cosign     = "latest"
 lazydocker = "latest"
 
-# ── infrastructure as code ──────────────────────────────────────────
-terraform = "latest"
-
-# ── extras (explicit backends; uncomment as needed) ─────────────────
-# These aren't single-word registry entries — they use aqua/npm/pipx backends.
-# Verify the backend path before enabling (mise will tell you if it can't resolve).
-# "aqua:argoproj/argo-rollouts"   = "latest"   # provides kubectl-argo-rollouts
-# "aqua:F1bonacc1/process-compose" = "latest"
-# "pipx:dbt-core"                  = "latest"   # or use Homebrew on macOS
-# "aqua:Infisical/infisical"       = "latest"
+# terraform, kubectl-argo-rollouts, infisical, process-compose, dbt are NOT in
+# the mise registry / lack working backends, so they live in the Brewfile
+# (macOS) instead. On Linux, install them via their own releases/apt.
 
 [settings]
 # Trust this config without an interactive prompt on first run.

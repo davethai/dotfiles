@@ -8,6 +8,13 @@ set -euo pipefail
 
 [[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Homebrew 6 refuses to load formulae from third-party taps until they're
+# trusted. Tap + trust the ones our Brewfile uses before bundling.
+for t in slp/krunkit dbt-labs/dbt-cli hashicorp/tap argoproj/tap infisical/get-cli f1bonacc1/tap; do
+  brew tap "$t" 2>/dev/null || true
+  brew trust "$t" 2>/dev/null || true
+done
+
 echo "==> brew bundle"
 brew bundle --file="{{ joinPath .chezmoi.sourceDir ".." "Brewfile" }}"
 {{- end }}

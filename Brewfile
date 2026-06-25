@@ -10,8 +10,14 @@
 #   brew bundle --file=Brewfile
 
 # ── taps ────────────────────────────────────────────────────────────
+# Third-party taps are trusted by the chezmoi brew script (Homebrew 6 requires
+# trusting non-core taps before it will load their formulae).
 tap "slp/krunkit"        # krunkit: podman machine provider (Apple silicon)
 tap "dbt-labs/dbt-cli"   # dbt
+tap "hashicorp/tap"      # terraform
+tap "argoproj/tap"       # kubectl-argo-rollouts
+tap "infisical/get-cli"  # infisical
+tap "f1bonacc1/tap"      # process-compose
 
 # ── mac-native CLI (system libs / brew-idiomatic) ───────────────────
 brew "mas"               # Mac App Store CLI
@@ -24,6 +30,12 @@ brew "podman"
 brew "krunkit"
 brew "skopeo"
 brew "dbt"
+
+# ── devops CLIs not in the mise registry (so they live here, macOS) ─
+brew "terraform"               # hashicorp/tap
+brew "kubectl-argo-rollouts"   # argoproj/tap
+brew "infisical"               # infisical/get-cli
+brew "process-compose"         # f1bonacc1/tap
 
 # ── fonts ───────────────────────────────────────────────────────────
 cask "font-jetbrains-mono-nerd-font"   # Ghostty

@@ -64,6 +64,16 @@ and five short shell scripts and know exactly what the machine will look like.
 Some things stay imperative (Affinity, Snapply, sign-in sync) — that's an
 accepted, documented cost, not a leak.
 
+## Declarative intent vs. convergent state
+
+The config describes the desired state, but only **mise** converges to it safely
+(it's the complete source of truth for CLI tools, so `mise prune` is reversible
+and contained). **Homebrew stays additive** — `brew bundle` never removes,
+because brew has external state (taps, deps, ad-hoc installs) that a blunt
+cleanup would prune along with everything else. That's a deliberate safety trade,
+not an oversight; the operational details live in the
+[runbook](../runbook.md#convergence-drift--cleanup).
+
 ## Why type-safety matters here
 
 The files you edit by hand (mise, starship, hk) carry schemas, so the editor
