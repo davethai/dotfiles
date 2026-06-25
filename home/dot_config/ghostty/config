@@ -2,10 +2,10 @@
 # See every option + its default:  ghostty +show-config --default
 # List themes:                     ghostty +list-themes
 
-font-family = "JetBrainsMono Nerd Font"
+font-family = JetBrainsMono Nerd Font
 font-size = 14
 
-theme = "catppuccin-mocha"
+theme = catppuccin-mocha
 background-opacity = 0.96
 
 window-padding-x = 10
