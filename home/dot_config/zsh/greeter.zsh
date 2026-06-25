@@ -7,7 +7,10 @@
 # Add your own art:  cp logo.png ~/.config/zsh/logo.png && chezmoi add ~/.config/zsh/logo.png
 # Size: --scale 1.0 ≈ the image's native pixel size; lower (e.g. 0.5) = smaller.
 # Show only on login shells instead of every tab: change `*i*` test to `-o login`.
-if [[ $- == *i* ]] && command -v chafa &>/dev/null; then
+# Skipped in VS Code's terminal — it only does the low-res block fallback. (To
+# show it there too: set "terminal.integrated.enableImages": true in VS Code and
+# change the command to `chafa -f sixels --scale 1.0`.)
+if [[ $- == *i* ]] && command -v chafa &>/dev/null && [[ "$TERM_PROGRAM" != "vscode" ]]; then
   _logo="$HOME/.config/zsh/logo.png"
   [[ -f "$_logo" ]] && chafa --scale 1.0 "$_logo"
   unset _logo
