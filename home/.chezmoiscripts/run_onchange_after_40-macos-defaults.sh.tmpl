@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if and (eq .chezmoi.os "darwin") (eq .profile "full") -}}
 #!/usr/bin/env bash
 # macOS system preferences via `defaults`. Re-runs when this script changes.
 set -euo pipefail

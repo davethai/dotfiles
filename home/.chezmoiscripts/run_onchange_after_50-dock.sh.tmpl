@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if and (eq .chezmoi.os "darwin") (eq .profile "full") -}}
 #!/usr/bin/env bash
 # Declarative Dock via dockutil. Re-runs when this script changes.
 # Missing apps are skipped so a partial install doesn't fail the run.

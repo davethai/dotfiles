@@ -1,27 +1,20 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 #
-# mise — cross-platform CLI tool + runtime manager.
-# This is the GLOBAL machine config (macOS + WSL/Ubuntu share it verbatim).
-# Per-project versions live in each project's own mise.toml and override these.
-#
-# Tool names resolve through the mise registry (https://mise.jdx.dev/registry.html).
-# Apply:  mise install        (run automatically by chezmoi)
+# mise — GLOBAL CLI toolchain (macOS + WSL share it). These are the CORE tools,
+# installed under every profile. Heavy/devops tools live in conf.d/devops.toml
+# and only apply when profile = "full". Per-project versions go in the project's
+# own mise.toml and override these.
 
 [tools]
 # ── languages / runtimes ────────────────────────────────────────────
-node    = "lts"
-python  = "3.14"
-rust    = "stable"
-# php + composer are managed by Laravel Herd on macOS (not mise) — see
-# Brewfile (cask "herd") and docs/how-to/php-laravel.md.
+node   = "lts"
+python = "3.14"
+uv     = "latest"   # python package/runtime manager
+# php + composer via Laravel Herd on macOS — see Brewfile + docs/how-to/php-laravel.md
 
-# ── package / project tooling ───────────────────────────────────────
-chezmoi = "latest"   # dotfile manager (bootstrap installs it; mise keeps it current)
-uv      = "latest"   # python package/runtime manager
-pnpm    = "latest"
-just    = "latest"   # task runner
-hk      = "latest"   # git hook manager (this repo's hooks)
-neovim  = "latest"   # $EDITOR
+# ── tooling ─────────────────────────────────────────────────────────
+chezmoi = "latest"  # dotfile manager
+neovim  = "latest"  # $EDITOR
 
 # ── shell experience ────────────────────────────────────────────────
 starship = "latest"  # prompt
@@ -29,38 +22,18 @@ eza      = "latest"  # ls replacement
 bat      = "latest"  # cat replacement
 fzf      = "latest"  # fuzzy finder
 zoxide   = "latest"  # smarter cd
-# (per-directory env is handled by mise's own [env] support — no direnv)
 
-# ── modern unix CLI (community standard) ────────────────────────────
-ripgrep  = "latest"  # rg — grep replacement
-fd       = "latest"  # find replacement (also powers fzf below)
-jq       = "latest"  # JSON
-yq       = "latest"  # YAML/JSON
+# ── modern unix CLI ─────────────────────────────────────────────────
+ripgrep = "latest"   # rg
+fd      = "latest"   # find replacement (powers fzf)
+jq      = "latest"   # JSON
+yq      = "latest"   # YAML/JSON
 
-# ── git / dev ───────────────────────────────────────────────────────
-gh         = "latest"  # GitHub CLI
-lazygit    = "latest"  # git TUI
-delta      = "latest"  # git diff pager (wired into ~/.config/git/config)
-trufflehog = "latest"  # secret scanner (hk pre-commit hook + CI)
-
-# ── kubernetes / cloud-native ───────────────────────────────────────
-kubectl    = "latest"
-k9s        = "latest"
-kind       = "latest"
-helm       = "latest"
-argocd     = "latest"
-trivy      = "latest"
-cosign     = "latest"
-lazydocker = "latest"
-
-# ── via ubi (GitHub-release binaries; cross-platform) ───────────────
-"ubi:F1bonacc1/process-compose" = "latest"
-
-# terraform, kubectl-argo-rollouts, infisical, dbt aren't in the mise registry
-# and lack a clean backend, so they live in the Brewfile (macOS). On Linux,
-# install them from their own releases/apt.
+# ── git ─────────────────────────────────────────────────────────────
+gh      = "latest"   # GitHub CLI
+lazygit = "latest"   # git TUI
+delta   = "latest"   # git diff pager (wired into ~/.config/git/config)
 
 [settings]
 # Trust this config without an interactive prompt on first run.
-# (chezmoi applies it to a known-good location.)
 experimental = true

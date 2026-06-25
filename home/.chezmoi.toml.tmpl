@@ -4,6 +4,7 @@
 {{- $signingKey := promptStringOnce . "signingKey" "SSH signing public key (full 'ssh-ed25519 AAAA...' line; blank to disable commit signing)" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAlrzGbaqXnERKhTBIaoxLXvuzAI+qt9rgKJxmau9uBr" -}}
 {{- $workEmail := promptStringOnce . "workEmail" "Work git email (blank to skip)" "" -}}
 {{- $workDir := promptStringOnce . "workDir" "Work git dir for includeIf, e.g. ~/Documents/dev/acme/ (blank to skip)" "" -}}
+{{- $profile := promptStringOnce . "profile" "Profile: full (everything) | minimal (shell + core CLI, no k8s/containers/GUI)" "full" -}}
 
 [data]
     name = {{ $name | quote }}
@@ -11,3 +12,4 @@
     signingKey = {{ $signingKey | quote }}
     workEmail = {{ $workEmail | quote }}
     workDir = {{ $workDir | quote }}
+    profile = {{ $profile | quote }}

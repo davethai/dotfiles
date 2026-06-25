@@ -1,0 +1,25 @@
+{{ if eq .profile "full" -}}
+#:schema https://mise.jdx.dev/schema/mise.json
+# Full-profile tools (heavy / devops). Applied only when profile = "full".
+# mise merges this with config.toml.
+
+[tools]
+rust       = "stable"
+pnpm       = "latest"
+just       = "latest"   # task runner
+hk         = "latest"   # git hook manager (this repo's hooks)
+trufflehog = "latest"   # secret scanner (hk pre-commit + CI)
+
+# kubernetes / cloud-native
+kubectl    = "latest"
+k9s        = "latest"
+kind       = "latest"
+helm       = "latest"
+argocd     = "latest"
+trivy      = "latest"
+cosign     = "latest"
+lazydocker = "latest"
+
+# ubi (GitHub-release binaries)
+"ubi:F1bonacc1/process-compose" = "latest"
+{{- end }}

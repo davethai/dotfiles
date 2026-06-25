@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Bootstrap prerequisites: package manager + mise + zsh as login shell.
-# Runs ONCE per machine (run_once), before any dotfiles are written.
+# run_onchange: re-runs whenever this script changes (idempotent). Heavy bits
+# (containers, PHP build deps) are gated to profile = "full".
 set -euo pipefail
 
 echo "==> Bootstrapping ({{ .chezmoi.os }}/{{ .chezmoi.arch }})"
@@ -11,11 +12,11 @@ if command -v apt-get &>/dev/null; then
   echo "==> apt: base system packages"
   sudo apt-get update -y
   sudo apt-get install -y --no-install-recommends \
-    build-essential procps curl file git unzip ca-certificates zsh chafa \
-    podman podman-compose uidmap slirp4netns
-
-  # Docker — for Docker-first repos. Ubuntu's own packages (no external apt repo
-  # to break on new releases). Podman stays installed for personal/rootless use.
+    build-essential procps curl file git unzip ca-certificates zsh chafa
+{{ if eq .profile "full" }}
+  # containers — podman (rootless) + Docker (Ubuntu's own packages, no external
+  # apt repo to break on new releases)
+  sudo apt-get install -y --no-install-recommends podman podman-compose uidmap slirp4netns
   sudo apt-get install -y docker.io docker-compose-v2
   sudo usermod -aG docker "$USER" 2>/dev/null || true
   sudo systemctl enable --now docker 2>/dev/null || true
@@ -26,6 +27,7 @@ if command -v apt-get &>/dev/null; then
     autoconf bison re2c pkg-config plocate libxml2-dev libssl-dev libcurl4-openssl-dev \
     libonig-dev libzip-dev libsqlite3-dev libpq-dev libreadline-dev libbz2-dev \
     zlib1g-dev libgd-dev libpng-dev libjpeg-dev libfreetype6-dev libicu-dev libxslt1-dev libgmp-dev
+{{ end }}
 fi
 {{- end }}
 

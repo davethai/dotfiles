@@ -12,9 +12,19 @@ sh -c "$(curl -fsSL https://chezmoi.io/get)" -- init --apply davethai
 ```
 
 > Replace `davethai` with this repo's owner if you forked it. The command
-> installs `chezmoi`, clones the repo, prompts for your git identity, then
-> bootstraps the whole machine. See [docs/tutorials/getting-started.md](docs/tutorials/getting-started.md)
+> installs `chezmoi`, clones the repo, prompts for your git identity + **profile**,
+> then bootstraps the machine. See [docs/tutorials/getting-started.md](docs/tutorials/getting-started.md)
 > for the guided walkthrough.
+
+### Profiles
+
+`chezmoi init` asks for a profile:
+
+- **`full`** (default) — everything: k8s/devops stack, containers (Docker + podman),
+  PHP build deps, and on macOS the GUI casks + Dock + system defaults.
+- **`minimal`** — shell + prompt + core CLI only (starship, eza, bat, fzf, zoxide,
+  rg, fd, jq, yq, gh, lazygit, delta, neovim, uv/node/python). For sandboxes /
+  remote dev boxes where the heavy tooling is just noise.
 
 ---
 

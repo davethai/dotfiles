@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if and (eq .chezmoi.os "darwin") (eq .profile "full") -}}
 #!/usr/bin/env bash
 # Install macOS GUI apps + native CLIs from the Brewfile.
 # Re-runs whenever the Brewfile changes (hash below).
