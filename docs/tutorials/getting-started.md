@@ -97,8 +97,18 @@ configured on the Windows side — one-time manual steps:
 
 - **No Homebrew, Herd, dock, or `defaults`** run on Linux — those steps are
   guarded out with `{{ if eq .chezmoi.os "darwin" }}` checks. `mise` provides the CLI tools.
-- **PHP** isn't set up on WSL (Herd is macOS-only) — use `mise use php@8.x`
-  (compiles) or `apt install php` per project.
+- **Containers**: the bootstrap installs `podman` + `podman-compose` (rootless) —
+  run `podman-compose up -d`. Podman Desktop is an optional Windows-side GUI, not
+  needed for the CLI.
+- **PHP**: not part of the stack (Herd is macOS-only). Install the version a
+  project needs via the `ondrej/php` PPA and switch with `update-alternatives`:
+  ```sh
+  sudo add-apt-repository -y ppa:ondrej/php && sudo apt update
+  sudo apt install -y php8.3 php8.3-{cli,common,mbstring,xml,curl,zip,bcmath,mysql,intl,gd}
+  sudo update-alternatives --set php /usr/bin/php8.3
+  ```
+  PHP 8.5+ is often too new for an inherited `composer.lock` — match the project's
+  version, then `composer install` (never `composer update`).
 
 ---
 
