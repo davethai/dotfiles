@@ -53,9 +53,12 @@ trivy      = "latest"
 cosign     = "latest"
 lazydocker = "latest"
 
-# terraform, kubectl-argo-rollouts, infisical, process-compose, dbt are NOT in
-# the mise registry / lack working backends, so they live in the Brewfile
-# (macOS) instead. On Linux, install them via their own releases/apt.
+# ── via ubi (GitHub-release binaries; cross-platform) ───────────────
+"ubi:F1bonacc1/process-compose" = "latest"
+
+# terraform, kubectl-argo-rollouts, infisical, dbt aren't in the mise registry
+# and lack a clean backend, so they live in the Brewfile (macOS). On Linux,
+# install them from their own releases/apt.
 
 [settings]
 # Trust this config without an interactive prompt on first run.
