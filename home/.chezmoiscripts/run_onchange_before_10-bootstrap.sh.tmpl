@@ -7,33 +7,33 @@ set -euo pipefail
 echo "==> Bootstrapping ({{ .chezmoi.os }}/{{ .chezmoi.arch }})"
 
 {{ if eq .chezmoi.os "linux" -}}
-# ── Linux: apt (Debian/Ubuntu) or dnf (RHEL/Fedora); mise does the rest ──
-if command -v apt-get &>/dev/null; then
+# ── Linux: apt (Debian/Ubuntu) or dnf (RHEL/Fedora). System packages need root;
+# without sudo (locked-down sandbox) they're skipped and mise installs the rest
+# to ~/.local. Each install is non-fatal so a no-sudo box still gets set up. ──
+if ! command -v sudo &>/dev/null; then
+  echo "==> no sudo — skipping system packages; mise installs the rest to ~/.local"
+elif command -v apt-get &>/dev/null; then
   echo "==> apt: base system packages"
-  sudo apt-get update -y
-  sudo apt-get install -y --no-install-recommends \
-    build-essential procps curl file git unzip ca-certificates zsh chafa
+  sudo apt-get update -y && sudo apt-get install -y --no-install-recommends \
+    build-essential procps curl file git unzip ca-certificates zsh chafa \
+    || echo "   (apt failed — likely no privileges; continuing)"
 {{ if eq .profile "full" }}
-  # containers — podman (rootless) + Docker (Ubuntu's own packages, no external
-  # apt repo to break on new releases)
-  sudo apt-get install -y --no-install-recommends podman podman-compose uidmap slirp4netns
-  sudo apt-get install -y docker.io docker-compose-v2
+  sudo apt-get install -y --no-install-recommends podman podman-compose uidmap slirp4netns || true
+  sudo apt-get install -y docker.io docker-compose-v2 || true
   sudo usermod -aG docker "$USER" 2>/dev/null || true
   sudo systemctl enable --now docker 2>/dev/null || true
-
-  # PHP build deps — so `mise use php@x.y` compiles with the usual extensions
-  # (dom, mbstring, pdo_pgsql, intl, gd, zip, ...). Version stays per-project.
+  # PHP build deps — so `mise use php@x.y` compiles with the usual extensions.
   sudo apt-get install -y --no-install-recommends \
     autoconf bison re2c pkg-config plocate libxml2-dev libssl-dev libcurl4-openssl-dev \
     libonig-dev libzip-dev libsqlite3-dev libpq-dev libreadline-dev libbz2-dev \
-    zlib1g-dev libgd-dev libpng-dev libjpeg-dev libfreetype6-dev libicu-dev libxslt1-dev libgmp-dev
+    zlib1g-dev libgd-dev libpng-dev libjpeg-dev libfreetype6-dev libicu-dev libxslt1-dev libgmp-dev || true
 {{ end }}
 elif command -v dnf &>/dev/null; then
   echo "==> dnf: base system packages (RHEL/Fedora)"
-  sudo dnf install -y zsh git curl tar gzip which findutils procps-ng
+  sudo dnf install -y zsh git curl tar gzip which findutils procps-ng \
+    || echo "   (dnf failed — likely no privileges; continuing)"
 {{ if eq .profile "full" }}
-  # Full extras on RHEL are best-effort (package names differ from apt).
-  sudo dnf install -y podman gcc gcc-c++ make
+  sudo dnf install -y podman gcc gcc-c++ make || true
 {{ end }}
 fi
 {{- end }}
