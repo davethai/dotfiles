@@ -68,14 +68,12 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 ### Steps
 
-1. In the Ubuntu shell, install chezmoi **and** let it clone + apply in one go:
+1. In the Ubuntu shell, install chezmoi and let it clone + apply in one go:
    ```sh
    sh -c "$(curl -fsSL https://chezmoi.io/get)" -- init --apply davethai
    ```
-   > ⚠️ Use this exact form. Do **not** `git clone` the repo yourself and pass
-   > `--source` — chezmoi can treat a local clone oddly and apply *nothing*
-   > (so the bootstrap never installs zsh). Let chezmoi do its own clone into
-   > `~/.local/share/chezmoi`.
+   chezmoi clones the repo into `~/.local/share/chezmoi`, prompts for your git
+   identity, then runs the bootstrap.
 2. Answer the git identity prompts (leave `signingKey` blank if this box has no
    SSH key yet).
 3. Enter your password when **`sudo apt`** installs the base system (incl. zsh).
