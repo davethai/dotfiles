@@ -66,34 +66,18 @@ So a Laravel repo commonly has:
 - **`mise.toml`** → Node version (committed with the repo)
 - **`composer.json` / `package.json`** → app dependencies
 
-## Working on an existing / inherited repo
-
-Use **`composer install`**, never `composer update`:
+## Bring a project up
 
 ```sh
-composer install
-```
-
-`install` reproduces the exact versions pinned in `composer.lock`. `composer
-update` re-resolves everything from scratch and can swap versions or drop ones
-flagged with security advisories (the *"not loaded because they are affected by
-security advisories"* errors) — which is why a repo that works fine for its
-author explodes if you `update` it.
-
-If `composer install` reports *"your lock file does not contain a compatible set
-of packages"*, that's a **PHP version mismatch**, not a missing package — match
-your PHP to the project's `"php"` constraint in `composer.json`. PHP 8.5+ is
-frequently *too new* for an older lock; install the right version (below) and
-retry. (`--ignore-platform-reqs` forces it, but a wrong PHP can break things at
-runtime — prefer matching.)
-
-Then the rest:
-```sh
+composer install                      # PHP deps (reproduces composer.lock)
 mise use node@lts && npm install      # front-end (Vite); pins Node in mise.toml
 cp .env.example .env && php artisan key:generate
-podman-compose up -d                  # start DB/redis (or `docker compose up -d`)
+podman-compose up -d                  # DB/redis (or `docker compose up -d`)
 php artisan migrate
 ```
+
+Containers use `podman` on both OSes (the managed `~/.config/containers/registries.conf`
+makes unqualified image names like `redis` resolve to Docker Hub).
 
 ## WSL / Ubuntu — PHP
 
