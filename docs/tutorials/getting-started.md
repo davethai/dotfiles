@@ -100,17 +100,9 @@ configured on the Windows side — one-time manual steps:
 - **Containers**: the bootstrap installs `podman` + `podman-compose` (rootless) —
   run `podman-compose up -d`. Podman Desktop is an optional Windows-side GUI, not
   needed for the CLI.
-- **PHP**: not part of the stack (Herd is macOS-only). Install the version a
-  project needs via the `ondrej/php` PPA (manual — it's not in the bootstrap, as
-  it lags brand-new Ubuntu releases) and switch with `update-alternatives`:
-  ```sh
-  sudo add-apt-repository -y ppa:ondrej/php && sudo apt update
-  sudo apt install -y php8.3 php8.3-{cli,common,mbstring,xml,curl,zip,bcmath,mysql,intl,gd}
-  sudo update-alternatives --set php /usr/bin/php8.3
-  ```
-  If the PPA has nothing for your Ubuntu release yet, use `mise use php@8.3`
-  (compiles) or default-repo PHP. PHP 8.5+ is often too new for an inherited
-  `composer.lock`.
+- **PHP**: per-project via `mise use php@8.3` (compiles; the bootstrap installs
+  the build deps so it includes dom/pgsql/intl/etc.). On a supported Ubuntu the
+  `ondrej/php` PPA is the prebuilt alternative. (macOS uses Herd.)
 
 ---
 

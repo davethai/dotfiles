@@ -13,6 +13,13 @@ if command -v apt-get &>/dev/null; then
   sudo apt-get install -y --no-install-recommends \
     build-essential procps curl file git unzip ca-certificates zsh chafa \
     podman podman-compose uidmap slirp4netns
+
+  # PHP build deps — so `mise use php@x.y` compiles with the usual extensions
+  # (dom, mbstring, pdo_pgsql, intl, gd, zip, ...). Version stays per-project.
+  sudo apt-get install -y --no-install-recommends \
+    autoconf bison re2c pkg-config libxml2-dev libssl-dev libcurl4-openssl-dev \
+    libonig-dev libzip-dev libsqlite3-dev libpq-dev libreadline-dev libbz2-dev \
+    zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev libicu-dev libxslt1-dev libgmp-dev
 fi
 {{- end }}
 
