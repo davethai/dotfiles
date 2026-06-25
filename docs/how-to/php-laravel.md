@@ -81,16 +81,17 @@ makes unqualified image names like `redis` resolve to Docker Hub).
 
 ## WSL / Ubuntu — PHP
 
-Herd is macOS/Windows only. On WSL, PHP comes from the **`ondrej/php` PPA** (added
-by the bootstrap), which makes every version installable side-by-side:
+Herd is macOS/Windows only. On WSL, the usual source is the **`ondrej/php` PPA**
+(every version side-by-side). Add it **manually** — it's deliberately *not* in
+the bootstrap, because the PPA lags brand-new Ubuntu releases (a release with no
+PPA packages 404s and breaks `apt update`):
 
 ```sh
+sudo add-apt-repository -y ppa:ondrej/php && sudo apt update
 sudo apt install -y php8.3 php8.3-{cli,common,mbstring,xml,curl,zip,bcmath,mysql,intl,gd}
-sudo update-alternatives --set php /usr/bin/php8.3   # switch the system default
-php -v
+sudo update-alternatives --set php /usr/bin/php8.3   # global switch
 ```
 
-`update-alternatives` switches PHP **globally**, not per-project like Herd. For
-per-directory PHP that mirrors your `mise.toml` Node setup, use `mise use php@8.3`
-— but mise compiles PHP from source on Linux (slower). Containers come from
-`podman-compose`, also installed by the bootstrap: `podman-compose up -d`.
+If the PPA has no release for your Ubuntu version yet, use **`mise use php@8.3`**
+(compiles from source) or the default-repo PHP. `update-alternatives` is a
+**global** switch (not per-project like Herd). Containers run via `podman-compose`.
