@@ -68,17 +68,39 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 ### Steps
 
-1. In the Ubuntu shell, run the one-liner above.
-2. Answer the git identity prompts.
-3. `apt` installs the base system; `mise install` installs the CLI toolchain.
-4. Restart your shell (`exec zsh`) — starship prompt appears.
+1. In the Ubuntu shell, install chezmoi **and** let it clone + apply in one go:
+   ```sh
+   sh -c "$(curl -fsSL https://chezmoi.io/get)" -- init --apply davethai
+   ```
+   > ⚠️ Use this exact form. Do **not** `git clone` the repo yourself and pass
+   > `--source` — chezmoi can treat a local clone oddly and apply *nothing*
+   > (so the bootstrap never installs zsh). Let chezmoi do its own clone into
+   > `~/.local/share/chezmoi`.
+2. Answer the git identity prompts (leave `signingKey` blank if this box has no
+   SSH key yet).
+3. Enter your password when **`sudo apt`** installs the base system (incl. zsh).
+   `mise` then installs the CLI toolchain.
+4. `exec zsh` — Catppuccin powerline prompt.
+
+### On Windows — manual (WSL can't manage the host)
+
+The terminal **window** is a Windows app, so fonts, glyphs, and background are
+configured on the Windows side — one-time manual steps:
+
+- **Nerd Font** *(required for glyphs)* — install one (e.g.
+  [FiraCode / JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads))
+  on Windows, then set it as the terminal font. Windows Terminal: profile →
+  Appearance → Font face. VS Code (Remote-WSL) already uses `FiraCode Nerd Font`
+  (synced) — just install that font on Windows. Without it you get boxes (▯).
+- **Background / theme** — to match macOS, set your terminal background to
+  Catppuccin Mocha `#1e1e2e` (Windows Terminal: a color scheme; VS Code: theme).
 
 ### Notes
 
-- There is **no Homebrew on Linux** here by design — `mise` provides the tools.
-- For a Nerd Font in Windows Terminal, install
-  [JetBrainsMono Nerd Font](https://www.nerdfonts.com/) on Windows and select it
-  in the Windows Terminal profile.
+- **No Homebrew, Herd, dock, or `defaults`** run on Linux — those steps are
+  guarded out with `{{ if eq .chezmoi.os "darwin" }}` checks. `mise` provides the CLI tools.
+- **PHP** isn't set up on WSL (Herd is macOS-only) — use `mise use php@8.x`
+  (compiles) or `apt install php` per project.
 
 ---
 

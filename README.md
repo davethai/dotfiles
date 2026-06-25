@@ -85,7 +85,7 @@ Adds, on top of the shared layer:
 - **System bootstrap** — [`run_once_before_10-bootstrap`](home/.chezmoiscripts/run_once_before_10-bootstrap.sh.tmpl)
   installs `build-essential zsh curl git file unzip` via `apt`. Everything
   else comes from `mise`, so there is **no Brewfile and no Homebrew** on Linux.
-- No GUI / Dock / `defaults` steps run (guarded by `{{ "{{ if eq .chezmoi.os \"darwin\" }}" }}`).
+- No GUI / Dock / `defaults` steps run (guarded with `{{ if eq .chezmoi.os "darwin" }}` checks).
 
 See [docs/tutorials/getting-started.md](docs/tutorials/getting-started.md) for
 the WSL distro import steps.

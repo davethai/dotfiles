@@ -152,6 +152,28 @@ hk install              # (re)install hooks into the repo
 hk --version            # must match the version pinned in hk.pkl's `amends` URL
 ```
 
+### WSL: `chezmoi init` did nothing / `zsh: command not found`
+
+Don't `git clone` the repo and run `chezmoi init --apply --source ~/.dotfiles` —
+chezmoi can treat the local clone oddly and apply nothing, so the bootstrap never
+installs zsh. Let chezmoi clone it itself:
+```sh
+chezmoi init --apply davethai
+```
+If the bootstrap's `apt` step already failed partway, finish it by hand then apply:
+```sh
+sudo apt update && sudo apt install -y zsh build-essential curl file unzip ca-certificates chafa
+command -v mise >/dev/null || curl -fsSL https://mise.run | sh
+chezmoi apply
+chsh -s "$(command -v zsh)" && exec zsh
+```
+
+### WSL: glyphs are boxes (▯) / wrong background
+
+Those are rendered by the **Windows** terminal, not WSL — install a Nerd Font on
+Windows and set it as the terminal font, and set the background to Catppuccin
+Mocha `#1e1e2e`. See the [getting-started Windows section](tutorials/getting-started.md#on-windows--manual-wsl-cant-manage-the-host).
+
 ## Health checks
 ```sh
 chezmoi doctor
