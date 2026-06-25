@@ -5,8 +5,9 @@
 font-family = JetBrainsMono Nerd Font
 font-size = 14
 
-theme = catppuccin-mocha
-background-opacity = 0.96
+theme = Catppuccin Mocha
+# Solid background = exact Catppuccin Mocha (#1e1e2e). Lower for transparency.
+background-opacity = 1.0
 
 window-padding-x = 10
 window-padding-y = 10

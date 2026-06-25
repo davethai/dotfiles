@@ -14,7 +14,9 @@ local linters = new Mapping<String, Step> {
   /// home for a self-update during the hook.
   ["trufflehog"] {
     glob = "*"
-    check = "trufflehog filesystem {{files}} --fail --results=verified,unknown --no-update"
+    // Resolve trufflehog via mise so it's found in the hook's non-interactive
+    // shell (mise tools aren't on PATH there; `mise activate` is interactive-only).
+    check = "mise exec -- trufflehog filesystem {{files}} --fail --results=verified,unknown --no-update"
   }
 }
 

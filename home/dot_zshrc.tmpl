@@ -15,7 +15,10 @@ fi
 {{- end }}
 
 # ── 2. mise (cross-platform CLI tools) ───────────────────────────────
-export PATH="$HOME/.local/bin:$PATH"
+# Put the shims dir on PATH so mise tools resolve in NON-interactive contexts
+# too (git hooks, editors, scripts). `mise activate` alone only injects tool
+# paths interactively, so hooks like hk/trufflehog wouldn't find them.
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
 if command -v mise &>/dev/null; then
   eval "$(mise activate zsh)"
 fi

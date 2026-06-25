@@ -16,13 +16,13 @@ tap "dbt-labs/dbt-cli"   # dbt
 # ── mac-native CLI (system libs / brew-idiomatic) ───────────────────
 brew "mas"               # Mac App Store CLI
 brew "dockutil"          # declarative Dock (used by chezmoi dock script)
+brew "btop"              # system monitor (aqua/mise pkg is Linux-only)
 brew "tmux"
 brew "ffmpeg"
 brew "ollama"
 brew "podman"
 brew "krunkit"
 brew "skopeo"
-brew "php"
 brew "dbt"
 
 # ── fonts ───────────────────────────────────────────────────────────
@@ -45,6 +45,7 @@ cask "podman-desktop"
 cask "tableplus"
 cask "claude-code"
 cask "tailscale-app"
+cask "herd"                  # Laravel Herd: PHP versions + Composer + nginx + *.test
 # design / media
 cask "figma"
 cask "blender"

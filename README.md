@@ -129,7 +129,8 @@ Organised by the [Diátaxis](https://diataxis.fr) framework:
 - **How-to** — [add a package](docs/how-to/add-a-package.md) ·
   [add a dotfile](docs/how-to/add-a-dotfile.md) ·
   [customize macOS / the Dock](docs/how-to/customize-macos.md) ·
-  [manual app setup](docs/how-to/manual-app-setup.md)
+  [manual app setup](docs/how-to/manual-app-setup.md) ·
+  [PHP & Laravel](docs/how-to/php-laravel.md)
 - **Reference** — [repository layout](docs/reference/repository-layout.md) ·
   [commands cheatsheet](docs/reference/commands.md)
 - **Explanation** — [architecture & design decisions](docs/explanation/architecture.md)

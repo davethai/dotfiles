@@ -12,7 +12,8 @@
 node    = "lts"
 python  = "3.14"
 rust    = "stable"
-# php stays on Homebrew (macOS) — see Brewfile.
+# php + composer are managed by Laravel Herd on macOS (not mise) — see
+# Brewfile (cask "herd") and docs/how-to/php-laravel.md.
 
 # ── package / project tooling ───────────────────────────────────────
 chezmoi = "latest"   # dotfile manager (bootstrap installs it; mise keeps it current)
@@ -37,9 +38,10 @@ jq       = "latest"  # JSON
 yq       = "latest"  # YAML/JSON
 
 # ── git / dev ───────────────────────────────────────────────────────
-gh       = "latest"  # GitHub CLI
-lazygit  = "latest"  # git TUI
-delta    = "latest"  # git diff pager (wired into ~/.config/git/config)
+gh         = "latest"  # GitHub CLI
+lazygit    = "latest"  # git TUI
+delta      = "latest"  # git diff pager (wired into ~/.config/git/config)
+trufflehog = "latest"  # secret scanner (hk pre-commit hook + CI)
 
 # ── kubernetes / cloud-native ───────────────────────────────────────
 kubectl    = "latest"
