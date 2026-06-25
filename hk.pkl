@@ -1,0 +1,26 @@
+/// hk — git hook manager. https://hk.jdx.dev
+///
+/// The `amends` URL pins the Config schema to a specific hk release; keep it in
+/// sync with your installed hk (`hk --version`). The Pkl language server
+/// validates this file against that schema — full IntelliSense in editors with
+/// the Pkl extension installed.
+///
+/// Install hooks into a repo:  hk install
+amends "package://github.com/jdx/hk/releases/download/v1.48.0/hk@1.48.0#/Config.pkl"
+
+local linters = new Mapping<String, Step> {
+  /// Secret scanning. Fails the commit if a verified or unknown secret is
+  /// found in the staged files. `--no-update` keeps trufflehog from phoning
+  /// home for a self-update during the hook.
+  ["trufflehog"] {
+    glob = "*"
+    check = "trufflehog filesystem {{files}} --fail --results=verified,unknown --no-update"
+  }
+}
+
+hooks {
+  ["pre-commit"] {
+    stash = "git"   // stash unstaged changes so we only scan what's committed
+    steps = linters
+  }
+}

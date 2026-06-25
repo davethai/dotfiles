@@ -1,0 +1,11 @@
+{
+  // Recommended extensions for editing this repo with full validation /
+  // IntelliSense. VS Code will prompt to install these on open.
+  "recommendations": [
+    "tamasfe.even-better-toml",        // schema-aware TOML (mise, starship)
+    "apple.pkl",                        // Pkl language server (hk.pkl)
+    "redhat.vscode-yaml",               // schema-aware YAML
+    "timonwong.shellcheck",             // shell script linting
+    "foxundermoon.shell-format"         // shell formatting
+  ]
+}

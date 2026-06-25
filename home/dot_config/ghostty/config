@@ -1,0 +1,19 @@
+# Ghostty terminal. https://ghostty.org/docs/config
+# See every option + its default:  ghostty +show-config --default
+# List themes:                     ghostty +list-themes
+
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+
+theme = catppuccin-mocha
+background-opacity = 0.96
+
+window-padding-x = 10
+window-padding-y = 10
+window-save-state = always
+
+cursor-style = block
+mouse-hide-while-typing = true
+
+# Treat the macOS Option key as Alt (needed for some zsh/word bindings).
+macos-option-as-alt = true

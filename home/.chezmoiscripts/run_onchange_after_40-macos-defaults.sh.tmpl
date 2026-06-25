@@ -1,0 +1,25 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+# macOS system preferences via `defaults`. Re-runs when this script changes.
+set -euo pipefail
+
+echo "==> Applying macOS defaults"
+
+# ── Appearance ──
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
+
+# ── Finder ──
+defaults write com.apple.finder FXPreferredViewStyle -string "icnv"   # icon view
+
+# ── Dock ──
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock show-recents -bool false
+
+# ── Control Center menu bar ──
+defaults write com.apple.controlcenter Bluetooth -int 1
+defaults write com.apple.controlcenter BatteryShowPercentage -bool true
+
+killall Finder Dock SystemUIServer 2>/dev/null || true
+{{- end }}

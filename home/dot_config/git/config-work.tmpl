@@ -1,0 +1,5 @@
+{{ if .workEmail -}}
+# Work overrides — included via includeIf from ~/.config/git/config.
+[user]
+	email = {{ .workEmail }}
+{{- end }}

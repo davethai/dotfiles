@@ -1,0 +1,13 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+# Install macOS GUI apps + native CLIs from the Brewfile.
+# Re-runs whenever the Brewfile changes (hash below).
+set -euo pipefail
+
+# Brewfile hash: {{ include (joinPath .chezmoi.sourceDir ".." "Brewfile") | sha256sum }}
+
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
+echo "==> brew bundle"
+brew bundle --file="{{ joinPath .chezmoi.sourceDir ".." "Brewfile" }}"
+{{- end }}

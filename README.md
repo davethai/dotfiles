@@ -1,188 +1,141 @@
-# My dotfiles
+# dotfiles
 
-## Windows (WSL 2) - NixOS
+Declarative, cross-platform machine setup for **macOS** and **WSL/Ubuntu**.
 
-### Requirements
+One command clones this repo, installs every tool, and renders every config
+file into place. The same source drives both operating systems; OS-specific
+behaviour is handled explicitly, not by accident.
 
-1. WSL 2 NixOS is enabled
-
-#### Installing WSL 2 (NixOS)
-
-1. Ensure WSL is enabled.
-
-```powershell
-wsl --install --no-distribution
+```sh
+# macOS or WSL/Ubuntu — fresh machine, one line:
+sh -c "$(curl -fsSL https://chezmoi.io/get)" -- init --apply davethai
 ```
 
-2. Download `nixos-wsl.tar.gz` from the [latest release](https://github.com/nix-community/NixOS-WSL/releases/latest)
+> Replace `davethai` with this repo's owner if you forked it. The command
+> installs `chezmoi`, clones the repo, prompts for your git identity, then
+> bootstraps the whole machine. See [docs/tutorials/getting-started.md](docs/tutorials/getting-started.md)
+> for the guided walkthrough.
 
-3. Import the tarball into WSL 2
+---
 
-```powershell
-wsl --import NixOS $env:USERPROFILE\NixOS\ nixos-wsl.tar.gz --version 2
-```
+## Philosophy
 
-4. Set NixOS as the default distro (optional - but recommended)
+Every layer owns **exactly one** responsibility, and lives in the tool that is
+*idiomatic* for that job — not whatever happens to be installed.
 
-```powershell
-wsl --set-default NixOS
-```
+> **chezmoi** places your files · **mise** installs your tools · **Homebrew**
+> installs Mac apps · **apt** bootstraps Linux. Everything else is *config* that
+> those four manage.
 
-5. You can now run NixOS (`-d NixOS` is not required because NixOS is default distro)
+| Layer | Tool | Owns | Config | OS |
+|---|---|---|---|---|
+| Dotfile sync | **chezmoi** | Renders/syncs config into `$HOME`, templating, per-machine values | this repo + `home/.chezmoi.toml.tmpl` | both |
+| CLI tools | **mise** | Installs & pins CLI tools + language runtimes (kubectl, k9s, helm, node, eza, starship…) | `~/.config/mise/config.toml` | both |
+| GUI + store apps | **Homebrew** + **mas** | macOS GUI casks, Mac App Store, mac-native CLIs (ffmpeg, ollama…) | [`Brewfile`](Brewfile) | macOS |
+| System bootstrap | **apt** | Base libs + zsh on Linux | bootstrap script | WSL/Ubuntu |
+| Shell | **zsh** + **zinit** | Interactive shell, plugins, aliases, keybinds | `~/.zshrc`, `~/.config/zsh/*` | both |
+| Prompt | **starship** | Prompt rendering | `~/.config/starship.toml` | both |
+| Terminal | **ghostty** | Terminal emulator | `~/.config/ghostty/config` | macOS |
+| macOS settings | **defaults** + **dockutil** | OS prefs (dark mode, Finder, Dock) + dock contents | `home/.chezmoiscripts/*` | macOS |
+| Git hooks | **hk** | Pre-commit secret scanning | [`hk.pkl`](hk.pkl) | this repo |
+| Per-project tooling | **mise** + **hk** *(in the project)* | Per-repo tool versions & hooks — **not** this repo | each project's own `mise.toml` / `hk.pkl` | per-project |
 
-```powershell
-wsl
-```
+Config you tune by hand (mise, starship, hk) is **schema-validated** in your
+editor; see [Type-safety](#type-safety--intellisense).
 
-#### Installation
+---
 
-1. Clone the repo
+## Shared (both operating systems)
 
-```shell
-nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/.dotfiles'
-```
+These are identical on macOS and WSL/Ubuntu:
 
-2. Apply the appropriate NixOS hostname configuration (ex: `dewgong` is shown here) and shutdown the WSL 2 Virtual Machine (VM)
+- **CLI toolchain** — declared once in [`home/dot_config/mise/config.toml`](home/dot_config/mise/config.toml).
+  `mise` installs kubectl, k9s, helm, terraform, node, python, rust, gh,
+  starship, eza, bat, fzf, zoxide, and the rest.
+- **Shell** — zsh + [zinit](home/dot_zshrc.tmpl) (pinned) with
+  autosuggestions, fast-syntax-highlighting, fzf-tab, completions.
+  Modular config in [`home/dot_config/zsh/`](home/dot_config/zsh).
+- **Prompt** — [starship](home/dot_config/starship.toml) (kubernetes /
+  terraform / cloud aware).
+- **Git** — [identity, SSH commit signing, and a work `includeIf`](home/dot_config/git/),
+  all templated from your answers to the `chezmoi init` prompts.
+- **Git hooks** — [`hk.pkl`](hk.pkl) runs `trufflehog` on every commit.
 
-```shell
-nix-shell -p git --run 'sudo nixos-rebuild switch --flake ~/.dotfiles/nix#dewgong'
-```
+## macOS
 
-3. Reconnect to WSL 2 VM
+Adds, on top of the shared layer:
 
-```powershell
-wsl
-```
+- **GUI apps + Mac App Store** — [`Brewfile`](Brewfile) (casks + `mas`),
+  applied via `brew bundle`.
+- **System preferences** — [`run_onchange_after_40-macos-defaults`](home/.chezmoiscripts/run_onchange_after_40-macos-defaults.sh.tmpl):
+  dark mode, 24-hour clock, Finder icon view, Dock autohide / no-recents,
+  Bluetooth + battery-% in the menu bar.
+- **Dock** — [`run_onchange_after_50-dock`](home/.chezmoiscripts/run_onchange_after_50-dock.sh.tmpl)
+  rebuilds the Dock from an explicit, ordered app list using `dockutil`.
+- **Terminal** — [Ghostty](home/dot_config/ghostty/config).
 
-## Darwin (MacOS) - Nix
+Some things stay **imperative** by necessity — see
+[docs/how-to/manual-app-setup.md](docs/how-to/manual-app-setup.md) (Affinity
+suite, Snapply dictation, VS Code/Chrome sign-in sync, SSH keys).
 
-### Requirements
+## WSL / Ubuntu
 
-1. Nix package manager is installed
-2. Command Line Tools for Xcode
+Adds, on top of the shared layer:
 
-#### Install [Nix](https://nixos.org/download/)
+- **System bootstrap** — [`run_once_before_10-bootstrap`](home/.chezmoiscripts/run_once_before_10-bootstrap.sh.tmpl)
+  installs `build-essential zsh curl git file unzip` via `apt`. Everything
+  else comes from `mise`, so there is **no Brewfile and no Homebrew** on Linux.
+- No GUI / Dock / `defaults` steps run (guarded by `{{ "{{ if eq .chezmoi.os \"darwin\" }}" }}`).
 
-1. Run the command below
+See [docs/tutorials/getting-started.md](docs/tutorials/getting-started.md) for
+the WSL distro import steps.
 
-```shell
-sh <(curl -L https://nixos.org/nix/install)
-```
+## Per-project (not managed here)
 
-#### Install Xcode Command Line Tools (Installs git)
+Project-level tooling lives **in each project repo**, never here:
 
-2. Run the command below
+- `mise.toml` pins that project's tool/runtime versions (overriding the global
+  config in this repo).
+- `hk.pkl` defines that project's own git hooks.
 
-```shell
-xcode-select --install
-```
+This repo is strictly **machine/global** config. The boundary is deliberate:
+cloning a project should configure the project; cloning this repo should
+configure the machine.
 
-#### Git Config
+---
 
-1. Set git `name` and `email`
-```shell
-git config --global user.name "Dave Thai"
-git config --global user.email "your-email@example.com"
-```
+## Type-safety / IntelliSense
 
-#### Installation
+The config you edit by hand validates against a schema in-editor. Open the repo
+in VS Code and accept the [recommended extensions](.vscode/extensions.json).
 
-1. Clone dotfiles repo
+| File | Validated by |
+|---|---|
+| `hk.pkl` | Pkl language server (real static types) |
+| `mise/config.toml` | `#:schema` + Even Better TOML |
+| `starship.toml` | `$schema` + Even Better TOML |
+| shell scripts | shellcheck |
 
-```shell
-nix-shell -p git --run 'git clone https://github.com/davethai/dotfiles.git ~/.dotfiles'
-```
+Untyped-by-nature files (`Brewfile`, `ghostty/config`, macOS `defaults`) are
+validated by their own tools (`brew bundle`, `ghostty +show-config`, `defaults`).
 
-2. Install Xcode from Mac App Store imperatively
+---
 
-3. Agree to Xcode License
-```shell
-sudo xcodebuild -license accept
-```
+## Documentation
 
-4. Run `nix-darwin` with `flake.nix` and replace with the appropriate hostname. `rhydon` is shown here.
+Organised by the [Diátaxis](https://diataxis.fr) framework:
 
-```shell
-sudo nix run nix-darwin --extra-experimental-features 'nix-command flakes' -- switch --flake ~/.dotfiles/nix#rhydon
-```
-
-5. `cd` into `$HOME/.dotfiles` directory
-
-```shell
-cd ~/.dotfiles
-```
-
-#### GitHub SSH Keys
-1. Generate SSH Key (enter through all prompts)
-```shell
-ssh-keygen -t ed25519 -C "your_email@example.com"
-```
-2. Copy Public SSH Key
-```shell
-cat ~/.ssh/id_ed25519.pub
-```
-3. Add to GitHub
-
-## Application Setup
-
-### VSCode
-
-1. Sign in to [VSCode](https://code.visualstudio.com/) to sync settings, and run `Cmd` + `Shift` + `P` = `Install code command in path` to install code
-
-2. Copy vscode icons to extensions
-
-```shell
-cp -r ~/.dotfiles/vscode/icons ~/.vscode/extensions
-```
-
-### Affinity Suite (Photo, Designer, Publisher)
-
-1. Due to Affinity Products no longer be listed on the Mac App Store, downlod on [Affinity Website](https://store.serif.com/en-us/account/licences)
-
-### Google Chrome
-
-1. Sign in to sync settings
-
-## Host Naming Convention
-
-**Host Short Name:** Pokemon
-
-**Host Long Name:** [LOCATION]-[TYPE]-[ROLE]-[UNIQUE_ID]
-
-**LOCATION** (Not Applicable to TYPE `L`)
-[COUNTRY_CODE (ISO 3166-1 alpha-2)]-[ADMINISTRATIVE_AREA]-[LOCALITY]-[B-BUILDING_CODE]-[F-FLOOR]-[R-ROOM]
-
-**TYPE**
-
-- D = Desktop
-- L = Laptop
-- S = Server
-- P = Printer
-- W = WiFi Access Point
-
-**ROLE**
-
-- WS - Workstation
-- APP - Application Server
-- DB - Database Server
-
-**UNIQUE_ID** (Numeric)
-
-## Maintenance
-
-1. Update flake
-
-```shell
-cd ~/.dotfiles/nix && nix flake update
-```
-
-2. Rebuild
-
-```shell
-sudo darwin-rebuild switch --flake ~/.dotfiles/nix#hostname
-```
+- **Tutorial** — [getting started on a fresh machine](docs/tutorials/getting-started.md)
+- **How-to** — [add a package](docs/how-to/add-a-package.md) ·
+  [add a dotfile](docs/how-to/add-a-dotfile.md) ·
+  [customize macOS / the Dock](docs/how-to/customize-macos.md) ·
+  [manual app setup](docs/how-to/manual-app-setup.md)
+- **Reference** — [repository layout](docs/reference/repository-layout.md) ·
+  [commands cheatsheet](docs/reference/commands.md)
+- **Explanation** — [architecture & design decisions](docs/explanation/architecture.md)
+- **Runbook** — [day-to-day operations & troubleshooting](docs/runbook.md)
 
 ## Credits
 
-- [@use-the-fork](https://github.com/use-the-fork) - for introducing to me to Nix!
-- [@NotAShelf/nyx](https://github.com/NotAShelf/nyx) - scalable file structure and code inspiration
+- [`@use-the-fork`](https://github.com/use-the-fork) — first introduced me to declarative config.
+- [chezmoi](https://chezmoi.io), [mise](https://mise.jdx.dev), [hk](https://hk.jdx.dev), [starship](https://starship.rs).

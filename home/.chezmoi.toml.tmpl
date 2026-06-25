@@ -1,0 +1,13 @@
+{{/* chezmoi config template — prompts run once on `chezmoi init`. */}}
+{{- $name := promptStringOnce . "name" "Full name" "Dave Thai" -}}
+{{- $email := promptStringOnce . "email" "Personal git email" "davethai93@gmail.com" -}}
+{{- $signingKey := promptStringOnce . "signingKey" "SSH signing public key (full 'ssh-ed25519 AAAA...' line; blank to disable commit signing)" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAlrzGbaqXnERKhTBIaoxLXvuzAI+qt9rgKJxmau9uBr" -}}
+{{- $workEmail := promptStringOnce . "workEmail" "Work git email (blank to skip)" "" -}}
+{{- $workDir := promptStringOnce . "workDir" "Work git dir for includeIf, e.g. ~/Documents/dev/acme/ (blank to skip)" "" -}}
+
+[data]
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
+    signingKey = {{ $signingKey | quote }}
+    workEmail = {{ $workEmail | quote }}
+    workDir = {{ $workDir | quote }}

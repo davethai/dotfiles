@@ -1,0 +1,23 @@
+{
+  // Wire each config file to its JSON schema so editing gives autocomplete +
+  // validation. TOML schemas are resolved by Even Better TOML (taplo).
+
+  // mise + starship already carry inline schema directives (#:schema / $schema),
+  // but we map them here too so validation works even without the inline line.
+  "evenBetterToml.schema.associations": {
+    ".*/mise/config\\.toml$": "https://mise.jdx.dev/schema/mise.json",
+    ".*mise\\.toml$": "https://mise.jdx.dev/schema/mise.json",
+    ".*starship\\.toml$": "https://starship.rs/config-schema.json"
+  },
+
+  // Treat chezmoi templates as their underlying language for highlighting.
+  "files.associations": {
+    "*.tmpl": "gotemplate",
+    "*.zsh": "shellscript",
+    "Brewfile": "ruby"
+  },
+
+  "[pkl]": {
+    "editor.tabSize": 2
+  }
+}
