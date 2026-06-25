@@ -16,7 +16,6 @@ tap "dbt-labs/dbt-cli"   # dbt
 # ── mac-native CLI (system libs / brew-idiomatic) ───────────────────
 brew "mas"               # Mac App Store CLI
 brew "dockutil"          # declarative Dock (used by chezmoi dock script)
-brew "mkalias"
 brew "tmux"
 brew "ffmpeg"
 brew "ollama"
