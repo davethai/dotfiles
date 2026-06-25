@@ -97,9 +97,10 @@ configured on the Windows side — one-time manual steps:
 
 - **No Homebrew, Herd, dock, or `defaults`** run on Linux — those steps are
   guarded out with `{{ if eq .chezmoi.os "darwin" }}` checks. `mise` provides the CLI tools.
-- **Containers**: the bootstrap installs `podman` + `podman-compose` (rootless) —
-  run `podman-compose up -d`. Podman Desktop is an optional Windows-side GUI, not
-  needed for the CLI.
+- **Containers**: the bootstrap installs **Docker** (`docker compose up -d`, for
+  Docker-first repos) and **podman** (rootless, personal use). Native engines —
+  no Docker Desktop / Podman Desktop needed. Docker needs a re-login for group
+  access: `wsl --shutdown` (from Windows), then reopen Ubuntu.
 - **PHP**: per-project via `mise use php@8.3` (compiles; the bootstrap installs
   the build deps so it includes dom/pgsql/intl/etc.). On a supported Ubuntu the
   `ondrej/php` PPA is the prebuilt alternative. (macOS uses Herd.)
