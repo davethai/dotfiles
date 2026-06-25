@@ -66,8 +66,47 @@ So a Laravel repo commonly has:
 - **`mise.toml`** → Node version (committed with the repo)
 - **`composer.json` / `package.json`** → app dependencies
 
-## WSL / Ubuntu
+## Working on an existing / inherited repo
 
-Herd is macOS/Windows only. On WSL, manage PHP with mise
-(`mise use php@8.3` — compiles via php-build, needs `apt` build deps) or your
-distro's `php` packages. This repo's PHP setup is macOS-focused.
+Use **`composer install`**, never `composer update`:
+
+```sh
+composer install
+```
+
+`install` reproduces the exact versions pinned in `composer.lock`. `composer
+update` re-resolves everything from scratch and can swap versions or drop ones
+flagged with security advisories (the *"not loaded because they are affected by
+security advisories"* errors) — which is why a repo that works fine for its
+author explodes if you `update` it.
+
+If `composer install` reports *"your lock file does not contain a compatible set
+of packages"*, that's a **PHP version mismatch**, not a missing package — match
+your PHP to the project's `"php"` constraint in `composer.json`. PHP 8.5+ is
+frequently *too new* for an older lock; install the right version (below) and
+retry. (`--ignore-platform-reqs` forces it, but a wrong PHP can break things at
+runtime — prefer matching.)
+
+Then the rest:
+```sh
+mise use node@lts && npm install      # front-end (Vite); pins Node in mise.toml
+cp .env.example .env && php artisan key:generate
+podman-compose up -d                  # start DB/redis (or `docker compose up -d`)
+php artisan migrate
+```
+
+## WSL / Ubuntu — PHP
+
+Herd is macOS/Windows only. On WSL, PHP comes from the **`ondrej/php` PPA** (added
+by the bootstrap), which makes every version installable side-by-side:
+
+```sh
+sudo apt install -y php8.3 php8.3-{cli,common,mbstring,xml,curl,zip,bcmath,mysql,intl,gd}
+sudo update-alternatives --set php /usr/bin/php8.3   # switch the system default
+php -v
+```
+
+`update-alternatives` switches PHP **globally**, not per-project like Herd. For
+per-directory PHP that mirrors your `mise.toml` Node setup, use `mise use php@8.3`
+— but mise compiles PHP from source on Linux (slower). Containers come from
+`podman-compose`, also installed by the bootstrap: `podman-compose up -d`.
