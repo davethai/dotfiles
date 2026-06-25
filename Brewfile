@@ -23,6 +23,7 @@ tap "f1bonacc1/tap"      # process-compose
 brew "mas"               # Mac App Store CLI
 brew "dockutil"          # declarative Dock (used by chezmoi dock script)
 brew "btop"              # system monitor (aqua/mise pkg is Linux-only)
+brew "chafa"             # terminal image renderer (zsh greeter logo)
 brew "tmux"
 brew "ffmpeg"
 brew "ollama"

@@ -46,7 +46,7 @@ zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::git
 
 # ── 4. modular config ────────────────────────────────────────────────
-for _f in env history comp binds fzf aliases; do
+for _f in env history comp binds fzf aliases greeter; do
   [[ -r "${HOME}/.config/zsh/${_f}.zsh" ]] && source "${HOME}/.config/zsh/${_f}.zsh"
 done
 unset _f

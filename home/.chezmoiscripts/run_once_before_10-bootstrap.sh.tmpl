@@ -11,7 +11,7 @@ if command -v apt-get &>/dev/null; then
   echo "==> apt: base system packages"
   sudo apt-get update -y
   sudo apt-get install -y --no-install-recommends \
-    build-essential procps curl file git unzip ca-certificates zsh
+    build-essential procps curl file git unzip ca-certificates zsh chafa
 fi
 {{- end }}
 
