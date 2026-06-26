@@ -1,0 +1,33 @@
+# ~/.bashrc — managed by chezmoi.
+# Bash fallback for boxes where zsh isn't available (e.g. sudo-less sandboxes).
+# It shares zsh's core config (env, aliases, greeter) so the two can't drift;
+# only the irreducibly shell-specific bits differ.
+
+# Source global definitions (RHEL/Fedora convention)
+[ -f /etc/bashrc ] && . /etc/bashrc
+
+# ── Homebrew (macOS) ─────────────────────────────────────────────────
+{{ if eq .chezmoi.os "darwin" -}}
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end }}
+
+# ── mise (cross-platform CLI tools) ──────────────────────────────────
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+command -v mise >/dev/null 2>&1 && eval "$(mise activate bash)"
+
+# ── shared config (also sourced by ~/.zshrc — single source of truth) ─
+for _f in env aliases greeter; do
+  [ -r "$HOME/.config/zsh/${_f}.zsh" ] && . "$HOME/.config/zsh/${_f}.zsh"
+done
+unset _f
+
+# ── bash history (zsh has its own in history.zsh) ────────────────────
+HISTSIZE=5000
+HISTFILESIZE=10000
+HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend
+
+# ── prompt + integrations ────────────────────────────────────────────
+command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
+command -v fzf      >/dev/null 2>&1 && eval "$(fzf --bash)"
+command -v zoxide   >/dev/null 2>&1 && eval "$(zoxide init --cmd cd bash)"

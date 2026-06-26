@@ -1,4 +1,5 @@
-# Environment variables. Sourced by ~/.zshrc.
+# Environment variables. Shared — sourced by ~/.zshrc AND ~/.bashrc.
+# Keep bash+zsh compatible (no zsh-only syntax).
 
 export EDITOR=nvim
 export VISUAL=nvim

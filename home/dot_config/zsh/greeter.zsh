@@ -1,4 +1,4 @@
-# Terminal greeter. Sourced by ~/.zshrc.
+# Terminal greeter. Shared — sourced by ~/.zshrc AND ~/.bashrc.
 # Renders ~/.config/zsh/logo.png on shell start if chafa + the image exist.
 # chafa auto-detects the terminal's graphics support (Ghostty → Kitty protocol,
 # Windows Terminal → Sixel, else Unicode blocks) and honors PNG transparency,

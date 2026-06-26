@@ -1,4 +1,4 @@
-# Aliases. Sourced by ~/.zshrc.
+# Aliases. Shared — sourced by ~/.zshrc AND ~/.bashrc. Keep bash+zsh compatible.
 
 # Preserve alias expansion after sudo (trailing space is intentional).
 alias sudo='sudo '

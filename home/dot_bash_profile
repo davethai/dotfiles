@@ -1,0 +1,3 @@
+# ~/.bash_profile — managed by chezmoi.
+# Login bash sources this; load ~/.bashrc so interactive + login behave the same.
+[ -f ~/.bashrc ] && . ~/.bashrc
