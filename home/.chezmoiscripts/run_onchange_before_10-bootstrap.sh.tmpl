@@ -7,33 +7,45 @@ set -euo pipefail
 echo "==> Bootstrapping ({{ .chezmoi.os }}/{{ .chezmoi.arch }})"
 
 {{ if eq .chezmoi.os "linux" -}}
-# ── Linux: apt (Debian/Ubuntu) or dnf (RHEL/Fedora). System packages need root;
-# without sudo (locked-down sandbox) they're skipped and mise installs the rest
-# to ~/.local. Each install is non-fatal so a no-sudo box still gets set up. ──
-if ! command -v sudo &>/dev/null; then
-  echo "==> no sudo — skipping system packages; mise installs the rest to ~/.local"
+# ── Linux: apt (Debian/Ubuntu) or dnf (RHEL/Fedora). System packages need root.
+# Probe sudo first: root or passwordless → use directly; real sudoer → prompt
+# once; locked-down box (not in sudoers) → skip system packages silently and let
+# mise install the rest to ~/.local. Avoids hanging/erroring on no-privilege boxes. ──
+SUDO=""
+if [ "$(id -u)" -eq 0 ]; then
+  :                                                    # already root
+elif command -v sudo &>/dev/null; then
+  if sudo -n true 2>/dev/null; then
+    SUDO="sudo"                                        # passwordless sudo
+  elif sudo -nv 2>&1 | grep -q 'password is required'; then
+    SUDO="sudo"                                        # in sudoers (prompts once)
+  fi
+fi
+
+if [ -z "$SUDO" ] && [ "$(id -u)" -ne 0 ]; then
+  echo "==> no sudo rights — skipping system packages; mise installs the rest to ~/.local"
 elif command -v apt-get &>/dev/null; then
   echo "==> apt: base system packages"
-  sudo apt-get update -y && sudo apt-get install -y --no-install-recommends \
+  $SUDO apt-get update -y && $SUDO apt-get install -y --no-install-recommends \
     build-essential procps curl file git unzip ca-certificates zsh chafa \
-    || echo "   (apt failed — likely no privileges; continuing)"
+    || echo "   (apt failed — continuing)"
 {{ if eq .profile "full" }}
-  sudo apt-get install -y --no-install-recommends podman podman-compose uidmap slirp4netns || true
-  sudo apt-get install -y docker.io docker-compose-v2 || true
-  sudo usermod -aG docker "$USER" 2>/dev/null || true
-  sudo systemctl enable --now docker 2>/dev/null || true
+  $SUDO apt-get install -y --no-install-recommends podman podman-compose uidmap slirp4netns || true
+  $SUDO apt-get install -y docker.io docker-compose-v2 || true
+  $SUDO usermod -aG docker "$USER" 2>/dev/null || true
+  $SUDO systemctl enable --now docker 2>/dev/null || true
   # PHP build deps — so `mise use php@x.y` compiles with the usual extensions.
-  sudo apt-get install -y --no-install-recommends \
+  $SUDO apt-get install -y --no-install-recommends \
     autoconf bison re2c pkg-config plocate libxml2-dev libssl-dev libcurl4-openssl-dev \
     libonig-dev libzip-dev libsqlite3-dev libpq-dev libreadline-dev libbz2-dev \
     zlib1g-dev libgd-dev libpng-dev libjpeg-dev libfreetype6-dev libicu-dev libxslt1-dev libgmp-dev || true
 {{ end }}
 elif command -v dnf &>/dev/null; then
   echo "==> dnf: base system packages (RHEL/Fedora)"
-  sudo dnf install -y zsh git curl tar gzip which findutils procps-ng \
-    || echo "   (dnf failed — likely no privileges; continuing)"
+  $SUDO dnf install -y zsh git curl tar gzip which findutils procps-ng \
+    || echo "   (dnf failed — continuing)"
 {{ if eq .profile "full" }}
-  sudo dnf install -y podman gcc gcc-c++ make || true
+  $SUDO dnf install -y podman gcc gcc-c++ make || true
 {{ end }}
 fi
 {{- end }}
