@@ -52,6 +52,9 @@ done
 unset _f
 
 # ── 5. prompt + integrations ─────────────────────────────────────────
+{{ if not (dig "nerdFont" true .) -}}
+export STARSHIP_CONFIG="$HOME/.config/starship-plain.toml"   # emoji prompt (no Nerd Font)
+{{ end -}}
 command -v starship &>/dev/null && eval "$(starship init zsh)"
 command -v fzf      &>/dev/null && eval "$(fzf --zsh)"
 command -v zoxide   &>/dev/null && eval "$(zoxide init --cmd cd zsh)"

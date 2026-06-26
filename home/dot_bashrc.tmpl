@@ -28,6 +28,9 @@ HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend
 
 # ── prompt + integrations ────────────────────────────────────────────
+{{ if not (dig "nerdFont" true .) -}}
+export STARSHIP_CONFIG="$HOME/.config/starship-plain.toml"   # emoji prompt (no Nerd Font)
+{{ end -}}
 command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
 command -v fzf      >/dev/null 2>&1 && eval "$(fzf --bash)"
 command -v zoxide   >/dev/null 2>&1 && eval "$(zoxide init --cmd cd bash)"

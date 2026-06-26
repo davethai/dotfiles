@@ -5,6 +5,7 @@
 {{- $workEmail := promptStringOnce . "workEmail" "Work git email (blank to skip)" "" -}}
 {{- $workDir := promptStringOnce . "workDir" "Work git dir for includeIf, e.g. ~/Documents/dev/acme/ (blank to skip)" "" -}}
 {{- $profile := promptStringOnce . "profile" "Profile: full (everything) | minimal (shell + core CLI, no k8s/containers/GUI)" "full" -}}
+{{- $nerdFont := promptBoolOnce . "nerdFont" "Nerd Font installed? false = emoji prompt for boxes where you can't install fonts" true -}}
 
 {{ if stat (joinPath .chezmoi.homeDir ".dotfiles" ".git") -}}
 # This machine edits the repo directly at ~/.dotfiles, so point chezmoi there.
@@ -19,3 +20,4 @@ sourceDir = {{ (joinPath .chezmoi.homeDir ".dotfiles") | quote }}
     workEmail = {{ $workEmail | quote }}
     workDir = {{ $workDir | quote }}
     profile = {{ $profile | quote }}
+    nerdFont = {{ $nerdFont }}
