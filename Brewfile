@@ -12,7 +12,7 @@
 # ── taps ────────────────────────────────────────────────────────────
 # Third-party taps are trusted by the chezmoi brew script (Homebrew 6 requires
 # trusting non-core taps before it will load their formulae).
-tap "slp/krunkit"        # krunkit: podman machine provider (Apple silicon)
+tap "slp/krun"           # krunkit: podman machine provider (Apple silicon)
 tap "dbt-labs/dbt-cli"   # dbt
 tap "hashicorp/tap"      # terraform
 tap "argoproj/tap"       # kubectl-argo-rollouts
