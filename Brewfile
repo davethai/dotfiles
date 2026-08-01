@@ -52,7 +52,6 @@ cask "cursor"
 cask "android-studio"
 cask "temurin@21"            # JDK (JAVA_HOME points here)
 # dev / containers
-cask "orbstack"
 cask "podman-desktop"
 cask "tableplus"
 cask "claude-code"
