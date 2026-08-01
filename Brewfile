@@ -28,6 +28,7 @@ brew "ffmpeg"
 brew "ollama"
 brew "podman"
 brew "krunkit"
+brew "lima"               # Linux VMs (container/dev machines)
 brew "skopeo"
 brew "dbt"
 
@@ -52,7 +53,6 @@ cask "android-studio"
 cask "temurin@21"            # JDK (JAVA_HOME points here)
 # dev / containers
 cask "orbstack"
-cask "lima"
 cask "podman-desktop"
 cask "tableplus"
 cask "claude-code"
