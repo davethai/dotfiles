@@ -57,4 +57,9 @@ export STARSHIP_CONFIG="$HOME/.config/starship-plain.toml"   # emoji prompt (no 
 {{ end -}}
 command -v starship &>/dev/null && eval "$(starship init zsh)"
 command -v fzf      &>/dev/null && eval "$(fzf --zsh)"
+# Herd (installed outside chezmoi) appends a PATH export after this file, which
+# trips zoxide's doctor into warning on every shell start — noisy stderr that
+# made the git pre-push hook panic. Disable the doctor instead of relying on
+# zoxide being the last PATH-mutating line.
+export _ZO_DOCTOR=0
 command -v zoxide   &>/dev/null && eval "$(zoxide init --cmd cd zsh)"
