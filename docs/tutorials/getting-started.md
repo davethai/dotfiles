@@ -99,8 +99,20 @@ configured on the Windows side — one-time manual steps:
   guarded out with `{{ if eq .chezmoi.os "darwin" }}` checks. `mise` provides the CLI tools.
 - **Containers**: the bootstrap installs **Docker** (`docker compose up -d`, for
   Docker-first repos) and **podman** (rootless, personal use). Native engines —
-  no Docker Desktop / Podman Desktop needed. Docker needs a re-login for group
-  access: `wsl --shutdown` (from Windows), then reopen Ubuntu.
+  no Docker Desktop / Podman Desktop needed. Two WSL post-install steps:
+  - **Group access** — `wsl --shutdown` (from Windows), then reopen Ubuntu.
+  - **Docker won't *run* until systemd is on** — WSL has no systemd by default,
+    so the service can't start. Add to `/etc/wsl.conf`:
+    ```ini
+    [boot]
+    systemd=true
+    ```
+    then `wsl --shutdown` and reopen. Verify with `docker run hello-world`.
+- **A tool missing after install?** First-boot WSL can have apt/DNS/locks not
+  ready. Force the bootstrap to re-run:
+  ```sh
+  chezmoi state delete-bucket --bucket=scriptState && chezmoi apply
+  ```
 - **PHP**: per-project via `mise use php@8.3` (compiles; the bootstrap installs
   the build deps so it includes dom/pgsql/intl/etc.). On a supported Ubuntu the
   `ondrej/php` PPA is the prebuilt alternative. (macOS uses Herd.)

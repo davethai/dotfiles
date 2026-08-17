@@ -6,6 +6,18 @@ set -euo pipefail
 
 echo "==> Bootstrapping ({{ .chezmoi.os }}/{{ .chezmoi.arch }})"
 
+# Retry a command up to 3× with linear backoff — first-boot WSL frequently has
+# apt locks held (unattended-upgrades) or DNS not yet resolving.
+retry() {
+  local n=1
+  until "$@"; do
+    [ "$n" -ge 3 ] && return 1
+    echo "   (attempt $n/3 failed; retrying in $((n * 5))s)"
+    sleep "$((n * 5))"
+    n=$((n + 1))
+  done
+}
+
 {{ if eq .chezmoi.os "linux" -}}
 # ── Linux: apt (Debian/Ubuntu) or dnf (RHEL/Fedora). System packages need root.
 # Probe sudo first: root or passwordless → use directly; real sudoer → prompt
@@ -26,14 +38,26 @@ if [ -z "$SUDO" ] && [ "$(id -u)" -ne 0 ]; then
   echo "==> no sudo rights — skipping system packages; mise installs the rest to ~/.local"
 elif command -v apt-get &>/dev/null; then
   echo "==> apt: base system packages"
-  $SUDO apt-get update -y && $SUDO apt-get install -y --no-install-recommends \
-    build-essential procps curl file git unzip ca-certificates zsh chafa \
-    || echo "   (apt failed — continuing)"
+  retry $SUDO apt-get update -y || echo "   (apt-get update failed after retries — install may fail)"
+  # Base layer is non-negotiable (zsh, git, build tools) — fail loudly rather
+  # than proceed to a half-built machine.
+  if ! $SUDO apt-get install -y --no-install-recommends \
+    build-essential procps curl file git unzip ca-certificates zsh chafa; then
+    echo "!! base apt install FAILED — zsh/git/build tools are missing." >&2
+    echo "!! fix the cause (network/DNS/apt lock), then re-run:" >&2
+    echo "!!   chezmoi state delete-bucket --bucket=scriptState && chezmoi apply" >&2
+    exit 1
+  fi
 {{ if eq .profile "full" }}
-  $SUDO apt-get install -y --no-install-recommends podman podman-compose uidmap slirp4netns || true
-  $SUDO apt-get install -y docker.io docker-compose-v2 || true
+  $SUDO apt-get install -y --no-install-recommends podman podman-compose uidmap slirp4netns \
+    || echo "!! podman install failed — re-run: chezmoi state delete-bucket --bucket=scriptState && chezmoi apply" >&2
+  $SUDO apt-get install -y docker.io docker-compose-v2 \
+    || echo "!! docker install failed — re-run: chezmoi state delete-bucket --bucket=scriptState && chezmoi apply" >&2
   $SUDO usermod -aG docker "$USER" 2>/dev/null || true
-  $SUDO systemctl enable --now docker 2>/dev/null || true
+  # WSL has no systemd unless enabled in /etc/wsl.conf — starting the service is
+  # best-effort; the docs cover turning systemd on.
+  $SUDO systemctl enable --now docker 2>/dev/null \
+    || echo "   (docker not started — on WSL set 'systemd=true' in /etc/wsl.conf, then 'wsl --shutdown')"
   # PHP build deps — so `mise use php@x.y` compiles with the usual extensions.
   $SUDO apt-get install -y --no-install-recommends \
     autoconf bison re2c pkg-config plocate libxml2-dev libssl-dev libcurl4-openssl-dev \

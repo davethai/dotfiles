@@ -28,22 +28,36 @@ ZINIT_PIN="v3.14.0"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [[ ! -d "$ZINIT_HOME" ]]; then
   mkdir -p "$(dirname "$ZINIT_HOME")"
-  git clone --depth 1 --branch "$ZINIT_PIN" \
-    https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+  # Retry: first-boot WSL often has DNS/network not ready.
+  for _try in 1 2 3; do
+    git clone --depth 1 --branch "$ZINIT_PIN" \
+      https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" && break
+    print -u2 "zinit clone failed (attempt ${_try}/3)"; sleep $(( _try * 3 ))
+  done
+  unset _try
 fi
-source "${ZINIT_HOME}/zinit.zsh"
 
-# plugins
-zinit light zsh-users/zsh-autosuggestions
-zinit light zdharma-continuum/fast-syntax-highlighting
-zinit light zsh-users/zsh-completions
+if [[ -r "${ZINIT_HOME}/zinit.zsh" ]]; then
+  source "${ZINIT_HOME}/zinit.zsh"
 
-# completions (load before fzf-tab)
-autoload -Uz compinit && compinit
-zinit cdreplay -q
+  # plugins
+  zinit light zsh-users/zsh-autosuggestions
+  zinit light zdharma-continuum/fast-syntax-highlighting
+  zinit light zsh-users/zsh-completions
 
-zinit light Aloxaf/fzf-tab
-zinit snippet OMZP::git
+  # completions (load before fzf-tab)
+  autoload -Uz compinit && compinit
+  zinit cdreplay -q
+
+  zinit light Aloxaf/fzf-tab
+  zinit snippet OMZP::git
+else
+  # No zinit — report it once and keep basic Tab completion working, rather than
+  # erroring on every `zinit` call below.
+  print -u2 "!! zinit missing — autosuggestions/completions/highlighting disabled."
+  print -u2 "!! fix network, then re-run: exec zsh   (it re-clones on startup)"
+  autoload -Uz compinit && compinit
+fi
 
 # ── 4. modular config ────────────────────────────────────────────────
 for _f in env history comp binds fzf aliases greeter; do
