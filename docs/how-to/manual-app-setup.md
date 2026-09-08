@@ -22,9 +22,6 @@ prompt (it feeds `~/.config/git/allowed_signers`).
 
 ## macOS apps not in the Mac App Store / Homebrew
 
-- **Affinity suite** (Photo, Designer, Publisher) — download from your
-  [Serif account](https://store.serif.com/account/licences); no longer on the
-  App Store.
 - **Snapply** (AI dictation) — install manually; not distributable declaratively.
 
 ## Mac App Store apps

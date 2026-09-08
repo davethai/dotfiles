@@ -58,6 +58,7 @@ cask "claude-code"
 cask "tailscale-app"
 cask "herd"                  # Laravel Herd: PHP versions + Composer + nginx + *.test
 # design / media
+cask "affinity"             # unified Photo + Designer + Publisher (v3)
 cask "figma"
 cask "blender"
 cask "obs"
