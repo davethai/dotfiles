@@ -30,12 +30,12 @@ brew "podman"
 brew "libkrun/krun/krunkit"
 brew "lima"               # Linux VMs (container/dev machines)
 brew "skopeo"
-brew "dbt"
+brew "dbt-labs/dbt-cli/dbt"
 
 # ── devops CLIs not in the mise registry (so they live here, macOS) ─
-brew "terraform"               # hashicorp/tap
-brew "kubectl-argo-rollouts"   # argoproj/tap
-brew "infisical"               # infisical/get-cli
+brew "hashicorp/tap/terraform"
+brew "argoproj/tap/kubectl-argo-rollouts"
+brew "infisical/get-cli/infisical"
 
 # ── fonts ───────────────────────────────────────────────────────────
 cask "font-jetbrains-mono-nerd-font"   # Ghostty
