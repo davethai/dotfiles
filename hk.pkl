@@ -6,12 +6,12 @@
 /// the Pkl extension installed.
 ///
 /// Install hooks into a repo:  hk install
-amends "package://github.com/jdx/hk/releases/download/v1.48.0/hk@1.48.0#/Config.pkl"
+amends "package://github.com/jdx/hk/releases/download/v2.6.0/hk@2.6.0#/Config.pkl"
 
 local linters = new Mapping<String, Step> {
-  /// Secret scanning. Fails the commit if a verified or unknown secret is
-  /// found in the staged files. `--no-update` keeps trufflehog from phoning
-  /// home for a self-update during the hook.
+  // Secret scanning. Fails the commit if a verified or unknown secret is
+  // found in the staged files. `--no-update` keeps trufflehog from phoning
+  // home for a self-update during the hook.
   ["trufflehog"] {
     glob = "*"
     // Resolve trufflehog via mise so it's found in the hook's non-interactive
