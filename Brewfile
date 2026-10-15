@@ -10,9 +10,9 @@
 #   brew bundle --file=Brewfile
 
 # ── taps ────────────────────────────────────────────────────────────
-# Third-party taps are trusted by the chezmoi brew script (Homebrew 6 requires
-# trusting non-core taps before it will load their formulae).
-tap "slp/krun"           # krunkit: podman machine provider (Apple silicon)
+# The chezmoi brew script trusts every tap listed here (Homebrew 6 refuses to
+# load formulae from untrusted taps).
+tap "libkrun/krun"       # krunkit: podman machine provider (Apple silicon)
 tap "dbt-labs/dbt-cli"   # dbt
 tap "hashicorp/tap"      # terraform
 tap "argoproj/tap"       # kubectl-argo-rollouts
@@ -27,7 +27,7 @@ brew "tmux"
 brew "ffmpeg"
 brew "ollama"
 brew "podman"
-brew "krunkit"
+brew "libkrun/krun/krunkit"
 brew "lima"               # Linux VMs (container/dev machines)
 brew "skopeo"
 brew "dbt"
