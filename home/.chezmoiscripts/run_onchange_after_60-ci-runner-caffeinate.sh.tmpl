@@ -1,0 +1,42 @@
+{{ if and (eq .chezmoi.os "darwin") (eq .profile "full") -}}
+#!/usr/bin/env bash
+# Keep the Mac awake while the CI runner VM runs. A sleeping host pauses the
+# Lima VM, its clock falls behind, and GitHub rejects the runners' tokens as
+# expired until they're restarted. A separate agent rather than an edit to
+# Lima's own autostart plist, which `limactl autostart enable` regenerates.
+# Closing a laptop lid still sleeps the machine.
+set -euo pipefail
+
+[[ -d "$HOME/.lima/ci-runner" ]] || { echo "==> No ci-runner VM; skipping caffeinate agent"; exit 0; }
+
+label="local.ci-runner-caffeinate"
+plist="$HOME/Library/LaunchAgents/$label.plist"
+mkdir -p "$HOME/Library/LaunchAgents"
+
+# caffeinate exits when the VM's host agent does; KeepAlive re-arms it against
+# the next VM start, and the sleep keeps a stopped VM from spinning launchd.
+cat > "$plist" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>$label</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/sh</string>
+    <string>-c</string>
+    <string>pid=\$(cat "$HOME/.lima/ci-runner/ha.pid" 2&gt;/dev/null) &amp;&amp; /usr/bin/caffeinate -is -w "\$pid"; sleep 60</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+</dict>
+</plist>
+PLIST
+
+launchctl bootout "gui/$(id -u)/$label" 2>/dev/null || true
+launchctl bootstrap "gui/$(id -u)" "$plist"
+echo "==> ci-runner caffeinate agent loaded"
+{{- end }}
