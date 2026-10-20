@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Install/update the global CLI toolchain via mise.
-# Re-runs whenever the mise config changes (hash below).
+# Re-runs whenever the mise config changes (hashes below).
 set -euo pipefail
 
 # mise config hash: {{ include (joinPath .chezmoi.sourceDir "dot_config/mise/config.toml") | sha256sum }}
+# devops config hash: {{ include (joinPath .chezmoi.sourceDir "dot_config/mise/conf.d/devops.toml.tmpl") | sha256sum }}
 
 export PATH="$HOME/.local/bin:$PATH"
 if ! command -v mise &>/dev/null; then

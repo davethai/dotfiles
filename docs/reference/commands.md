@@ -47,11 +47,12 @@
 
 ```sh
 mise upgrade                  # CLI toolchain
-brew update && brew upgrade   # macOS apps + native CLIs (incl. brew-managed mise)
+mise self-update              # mise itself (installed via mise.run, not brew)
+brew update && brew upgrade   # macOS apps + native CLIs
 zinit update --all            # zsh plugins
 ```
 
-Or just the `up` alias (defined in `zsh/aliases.zsh`), which runs all three.
+Or just the `up` alias (defined in `zsh/aliases.zsh`), which runs all of these.
 
 Config changes are separate: edit the repo, then `chezmoi apply`. See the
 [runbook](../runbook.md#routine-operations) for the `apply` vs `update` distinction.

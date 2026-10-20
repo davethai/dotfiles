@@ -47,8 +47,8 @@ alias kgnetpol='kubectl get networkpolicies'
 
 # ── maintenance ──────────────────────────────────────────────────────
 # Update everything: CLI tools, Homebrew apps, zsh plugins.
-# `;` (not `&&`) so one step failing doesn't abort the rest. `mise self-update`
-# is a no-op when mise is package-managed (Homebrew on macOS keeps it current).
+# `;` (not `&&`) so one step failing doesn't abort the rest. mise itself comes
+# from its own installer (~/.local/bin), so `mise self-update` keeps it current.
 # (Config changes are separate — edit the repo, then `chezmoi apply`.)
 alias up='mise upgrade; mise self-update 2>/dev/null; brew update && brew upgrade; zinit update --all'
 

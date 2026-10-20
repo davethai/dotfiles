@@ -9,16 +9,13 @@ Operational reference for a machine already set up. For first-time setup see the
 One command per layer (or just run the `up` alias):
 ```sh
 mise upgrade                  # CLI toolchain
-brew update && brew upgrade   # macOS apps (casks) + native CLIs (incl. mise if brew-managed)
+mise self-update              # mise itself (installed via mise.run, not brew)
+brew update && brew upgrade   # macOS apps (casks) + native CLIs
 zinit update --all            # zsh plugins
 
 # all of the above in one shot:
 up
 ```
-`mise self-update` only applies when mise was installed via its own installer
-(`curl mise.run`). When mise is package-managed (Homebrew on macOS), `brew
-upgrade` keeps it current and `self-update` is a no-op — the `up` alias handles
-both cases.
 
 ### Change a config file
 On this machine (where `~/.dotfiles` is your editable source):
