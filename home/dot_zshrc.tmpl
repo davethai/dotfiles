@@ -84,8 +84,8 @@ command -v zoxide   &>/dev/null && eval "$(zoxide init --cmd cd zsh)"
 {{- if eq .chezmoi.os "darwin" }}
 
 
-# Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="{{ .chezmoi.homeDir }}/Library/Application Support/Herd/config/php/84/"
+# Herd injected PHP 8.5 configuration.
+export HERD_PHP_85_INI_SCAN_DIR="{{ .chezmoi.homeDir }}/Library/Application Support/Herd/config/php/85"
 
 
 # Herd injected PHP binary.
