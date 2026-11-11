@@ -18,3 +18,8 @@ mouse-hide-while-typing = true
 
 # Treat the macOS Option key as Alt (needed for some zsh/word bindings).
 macos-option-as-alt = true
+
+# Over SSH, install Ghostty's terminfo on the remote host on first connect,
+# falling back to TERM=xterm-256color where it can't, so fresh servers don't
+# fail with "'xterm-ghostty': unknown terminal type".
+shell-integration-features = ssh-terminfo,ssh-env
