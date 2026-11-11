@@ -1,0 +1,3 @@
+# Host entries for this machine's own servers live in ~/.ssh/config.d/,
+# which isn't tracked, so their addresses and usernames stay out of this repo.
+Include ~/.ssh/config.d/*
