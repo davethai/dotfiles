@@ -16,9 +16,10 @@ if command -v fd &>/dev/null; then
   export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 fi
 
-# Podman → Docker socket compatibility (when a podman machine is running)
-if command -v podman &>/dev/null; then
-  _sock="$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}' 2>/dev/null)"
-  [[ -n "$_sock" ]] && export DOCKER_HOST="unix://${_sock}"
-  unset _sock
-fi
+# Podman → Docker socket compatibility (when a podman machine is running). The
+# default machine's API socket has a fixed path under $TMPDIR, so testing for it
+# costs nothing, where `podman machine inspect` stalls every new shell whenever
+# the machine's management API hangs.
+_sock="${TMPDIR%/}/podman/podman-machine-default-api.sock"
+[[ -S "$_sock" ]] && export DOCKER_HOST="unix://${_sock}"
+unset _sock
