@@ -29,7 +29,6 @@ brew "ffmpeg"
 brew "ollama"
 brew "podman"
 brew "libkrun/krun/krunkit"
-brew "lima"               # Linux VMs (container/dev machines)
 brew "skopeo"
 brew "dbt-labs/dbt-cli/dbt"
 
